@@ -194,7 +194,6 @@
       background: var(--orb-three);
     }
 
-
     /* =========================================================
        SCROLL PROGRESS
     ========================================================= */
@@ -245,7 +244,6 @@
     html[data-theme="dark"] .scroll-progress:hover {
       background: rgba(255,255,255,.15);
     }
-
 
     /* =========================================================
        DARK MODE TOGGLE
@@ -536,7 +534,6 @@
       box-shadow: 0 4px 12px rgba(0,0,0,.15);
     }
 
-
     /* =========================================================
        LAYOUT
     ========================================================= */
@@ -553,7 +550,6 @@
     section {
       scroll-margin-top: 110px;
     }
-
 
     /* =========================================================
        HERO
@@ -746,7 +742,6 @@
       background: rgba(255,255,255,.3);
     }
 
-
     /* =========================================================
        SCROLL REVEAL
     ========================================================= */
@@ -775,7 +770,6 @@
 
       filter: blur(0);
     }
-
 
     /* =========================================================
        SECTION HEADER
@@ -830,7 +824,6 @@
     .section-header:hover .section-number {
       color: var(--text-primary);
     }
-
 
     /* =========================================================
        GLASS
@@ -908,7 +901,6 @@
     .glass:hover::before {
       opacity: .85;
     }
-
 
     /* =========================================================
        WORK
@@ -1282,6 +1274,60 @@
       transform: translate(3px, -3px);
     }
 
+    /* =========================================================
+       COMING SOON CARD
+    ========================================================= */
+    .coming-soon-card {
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      text-align: center;
+    }
+
+    .coming-soon-card:hover,
+    .coming-soon-card.active {
+      transform: translateY(-8px) scale(1.01) !important;
+    }
+
+    .coming-soon-content {
+      width: 100%;
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .coming-soon-content .project-kicker {
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .coming-soon-content h3 {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1;
+      letter-spacing: -.045em;
+      font-weight: 620;
+    }
+
+    .coming-soon-content .project-description {
+      margin: 20px auto 0;
+      text-align: center;
+      max-width: 480px;
+    }
+
+    .coming-soon-content .project-meta {
+      justify-content: center;
+      margin-top: 25px;
+    }
+
+    @media (max-width: 700px) {
+      .coming-soon-card {
+        min-height: 260px;
+      }
+    }
 
     /* =========================================================
        RESPONSIVE
@@ -1341,9 +1387,8 @@
       }
     }
 
-
     /* =========================================================
-       RESTORED CONTENT SECTIONS
+       RESTORED CONTENT SECTIONS & SCROLL HIGHLIGHT
     ========================================================= */
 
     .statement-section {
@@ -1364,17 +1409,41 @@
       color: var(--text-primary);
     }
 
-    .highlight-word {
-      color: rgba(17,17,19,.18);
-      transition: color .45s ease;
+    /* Reliable Scroll Highlight Effect */
+    .statement-copy .highlight-word {
+      position: relative;
+      display: inline;
+      color: rgba(0,0,0,.15);
+      background: none !important;
+      -webkit-text-fill-color: initial !important;
+      transition: none !important;
     }
 
-    html[data-theme="dark"] .highlight-word {
-      color: rgba(245,245,247,.2);
-    }
-
-    .highlight-word.active {
+    .statement-copy .highlight-word::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      width: calc(var(--highlight-progress, 0) * 100%);
+      overflow: hidden;
+      white-space: nowrap;
       color: var(--text-primary);
+      pointer-events: none;
+    }
+
+    /* Dark Mode overwrites for the Idea section */
+    @media (prefers-color-scheme: dark) {
+      .statement .section-label,
+      .statement .section-number {
+        color: rgba(255,255,255,.72);
+      }
+    }
+
+    html[data-theme="dark"] .statement-copy .highlight-word {
+      color: rgba(255,255,255,.2);
+    }
+
+    html[data-theme="dark"] .statement-copy .highlight-word::after {
+      color: #fff;
     }
 
     .about-section {
@@ -1590,112 +1659,7 @@
       }
     }
 
-  
-/* Dark-mode readability for the Idea section */
-@media (prefers-color-scheme: dark) {
-  .statement .section-label,
-  .statement .section-number {
-    color: rgba(255,255,255,.72);
-  }
-
-  .statement .statement-text {
-    color: rgba(255,255,255,.24);
-  }
-
-  .statement .statement-text .highlight-word {
-    color: rgba(255,255,255,.26);
-    background-image: linear-gradient(
-      90deg,
-      rgba(255,255,255,.95),
-      rgba(255,255,255,.95)
-    );
-    background-repeat: no-repeat;
-    background-size: 0% 100%;
-    background-position: left center;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: background-size .08s linear;
-  }
-
-  .statement .statement-text .highlight-word.active {
-    color: transparent;
-  }
-}
-
-
-/* Clean Coming Soon card */
-.coming-soon-card {
-  min-height: 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: default;
-}
-
-.coming-soon-card:hover,
-.coming-soon-card.active {
-  transform: none !important;
-}
-
-.coming-soon-content {
-  width: 100%;
-  text-align: center;
-  padding: 48px 24px;
-}
-
-.coming-soon-content .project-kicker {
-  display: block;
-  margin-bottom: 12px;
-}
-
-.coming-soon-content h3 {
-  margin: 0;
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 1;
-  letter-spacing: -.045em;
-  font-weight: 600;
-}
-
-@media (max-width: 700px) {
-  .coming-soon-card {
-    min-height: 260px;
-  }
-}
-
-
-/* Scroll highlight — robust light/dark mode implementation */
-.statement .statement-text .highlight-word {
-  position: relative;
-  display: inline;
-  color: rgba(0,0,0,.18);
-  background: none !important;
-  -webkit-text-fill-color: initial !important;
-  transition: none !important;
-}
-
-.statement .statement-text .highlight-word::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  width: calc(var(--highlight-progress, 0) * 100%);
-  overflow: hidden;
-  white-space: nowrap;
-  color: #000;
-  pointer-events: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  .statement .statement-text .highlight-word {
-    color: rgba(255,255,255,.22);
-  }
-
-  .statement .statement-text .highlight-word::after {
-    color: #fff;
-  }
-}
-
-</style>
+  </style>
 </head>
 
 <body>
@@ -1805,7 +1769,6 @@
             </div>
 
             <div class="project-image">
-              <!-- Placeholder for project image -->
               <div style="width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 24px; display: grid; place-items: center; color: white; font-weight: 600; font-size: 18px;">
                 Project Image
               </div>
@@ -1852,41 +1815,19 @@
           </div>
         </article>
 
-        <article class="project glass reveal">
-          <div class="project-inner">
-            <div class="project-info">
-              <div class="project-top">
-                <span class="project-index">Project 03</span>
-                <div class="project-status">
-                  <div class="status-dot"></div>
-                  <span>Active</span>
-                </div>
-              </div>
-
-              <div>
-                <h3 class="project-title">Coming soon</h3>
-                <p class="project-description">
-                  Small experiments, tools, and products built around one idea:
-                  software should solve a real problem before it tries to look impressive.
-                </p>
-
-                <div class="project-meta">
-                  <span class="tag">Experiments</span>
-                  <span class="tag">Prototypes</span>
-                  <span class="tag">In Progress</span>
-                </div>
-              </div>
-
-              <a href="#" class="project-link">
-                <span>Learn more</span>
-                <div class="project-arrow"></div>
-              </a>
-            </div>
-
-            <div class="project-image">
-              <div style="width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 24px; display: grid; place-items: center; color: white; font-weight: 600; font-size: 18px;">
-                Project Image
-              </div>
+        <!-- Cleaned up Coming Soon Block -->
+        <article class="project glass reveal coming-soon-card">
+          <div class="coming-soon-content">
+            <span class="project-index project-kicker">Project 03</span>
+            <h3>Coming soon</h3>
+            <p class="project-description">
+              Small experiments, tools, and products built around one idea:
+              software should solve a real problem before it tries to look impressive.
+            </p>
+            <div class="project-meta">
+              <span class="tag">Experiments</span>
+              <span class="tag">Prototypes</span>
+              <span class="tag">In Progress</span>
             </div>
           </div>
         </article>
@@ -1959,7 +1900,8 @@
         <p>
           For projects, experiments, collaborations, or just a good software idea.
         </p>
-        <a class="contact-button" href="mailto:lukelabsco@gmail.com">
+        <!-- Gmail 웹 직접 쓰기 링크 적용 -->
+        <a class="contact-button" href="https://mail.google.com/mail/?view=cm&fs=1&to=lukelabsco@gmail.com" target="_blank" rel="noopener noreferrer">
           <span>Get in touch</span>
           <span>↗</span>
         </a>
@@ -1991,15 +1933,12 @@
       }
 
       init() {
-        // Get stored theme or use system preference
         const storedTheme = this.getStoredTheme();
         const prefersSystemDark = this.prefersDark.matches;
         const initialTheme = storedTheme || (prefersSystemDark ? 'dark' : 'light');
 
-        // Set initial theme
         this.setTheme(initialTheme);
 
-        // Add event listeners
         this.toggleBtn?.addEventListener('click', () => this.toggle());
         this.prefersDark.addEventListener('change', (e) => {
           if (!this.getStoredTheme()) {
@@ -2021,7 +1960,6 @@
         this.html.setAttribute('data-theme', validTheme);
         localStorage.setItem(this.storageKey, validTheme);
 
-        // Add pulse animation on toggle
         if (this.toggleBtn) {
           this.toggleBtn.style.animation = 'none';
           setTimeout(() => {
@@ -2037,7 +1975,6 @@
       }
     }
 
-    // Initialize theme manager
     const themeManager = new ThemeManager();
 
     // =========================================================
@@ -2053,8 +1990,6 @@
       if (scrollProgress) scrollProgress.style.height = progress + '%';
     }
 
-    window.addEventListener('scroll', updateScrollProgress);
-
     // =========================================================
     // NAV SCROLL DETECTION
     // =========================================================
@@ -2068,8 +2003,6 @@
         nav?.classList.remove('scrolled');
       }
     }
-
-    window.addEventListener('scroll', updateNavScroll);
 
     // =========================================================
     // SCROLL REVEAL ANIMATION
@@ -2090,7 +2023,6 @@
       revealObserver.observe(element);
     });
 
-
     // =========================================================
     // PROJECT INTERACTION + SCROLL DEPTH
     // =========================================================
@@ -2106,16 +2038,6 @@
         project.classList.toggle('active');
       });
     });
-
-    const highlightWords = document.querySelectorAll('.highlight-word');
-
-    function updateHighlight() {
-      highlightWords.forEach((word, index) => {
-        const rect = word.getBoundingClientRect();
-        const trigger = window.innerHeight * 0.78 - index * 12;
-        word.classList.toggle('active', rect.top < trigger);
-      });
-    }
 
     function updateProjectDepth() {
       projects.forEach((project) => {
@@ -2136,6 +2058,35 @@
       });
     }
 
+    // =========================================================
+    // RELIABLE SCROLL HIGHLIGHT
+    // =========================================================
+    
+    function updateHighlightProgress() {
+      const words = document.querySelectorAll('.statement .highlight-word');
+      if (!words.length) return;
+      const h = window.innerHeight;
+
+      words.forEach((word) => {
+        const rect = word.getBoundingClientRect();
+        
+        // Starts highlighting when the word enters the lower-middle area,
+        // completes as it reaches the upper-middle area.
+        const start = h * 0.82;
+        const end = h * 0.38;
+        const progress = Math.max(
+          0,
+          Math.min(1, (start - rect.top) / (start - end))
+        );
+
+        word.style.setProperty('--highlight-progress', progress);
+      });
+    }
+
+    // =========================================================
+    // SCROLL LISTENER (RAF)
+    // =========================================================
+
     let rafPending = false;
     function onVisualScroll() {
       if (rafPending) return;
@@ -2144,14 +2095,15 @@
       requestAnimationFrame(() => {
         updateScrollProgress();
         updateNavScroll();
-        updateHighlight();
         updateProjectDepth();
+        updateHighlightProgress(); // Apply highlight effect reliably
         rafPending = false;
       });
     }
 
     window.addEventListener('scroll', onVisualScroll, { passive: true });
     window.addEventListener('resize', onVisualScroll);
+    window.addEventListener('load', onVisualScroll);
     onVisualScroll();
 
     // =========================================================
@@ -2190,51 +2142,5 @@
       });
     });
   </script>
-
-
-
-
-<script>
-/* Luke Labs — reliable scroll highlight */
-(() => {
-  const words = [...document.querySelectorAll('.statement .highlight-word')];
-  if (!words.length) return;
-
-  const update = () => {
-    const h = window.innerHeight;
-
-    words.forEach((word) => {
-      const rect = word.getBoundingClientRect();
-
-      // Starts highlighting when the word enters the lower-middle area,
-      // completes as it reaches the upper-middle area.
-      const start = h * 0.82;
-      const end = h * 0.38;
-      const progress = Math.max(
-        0,
-        Math.min(1, (start - rect.top) / (start - end))
-      );
-
-      word.style.setProperty('--highlight-progress', progress);
-    });
-  };
-
-  let raf = 0;
-  const requestUpdate = () => {
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      raf = 0;
-      update();
-    });
-  };
-
-  window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate);
-  window.addEventListener('load', update);
-  update();
-})();
-</script>
-
 </body>
-
 </html>
