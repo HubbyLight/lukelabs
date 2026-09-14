@@ -119,6 +119,7 @@
       opacity: .42;
 
       will-change: transform;
+      transition: opacity .4s ease;
     }
 
     .orb.one {
@@ -163,6 +164,8 @@
       background: rgba(0,0,0,.08);
 
       z-index: 90;
+
+      transition: opacity .3s ease;
     }
 
     .scroll-progress-fill {
@@ -174,6 +177,10 @@
       background: rgba(17,17,19,.75);
 
       transition: height .08s linear;
+    }
+
+    .scroll-progress:hover {
+      background: rgba(0,0,0,.15);
     }
 
 
@@ -232,7 +239,12 @@
 
       transition:
         background .35s ease,
-        box-shadow .35s ease;
+        box-shadow .35s ease,
+        transform .3s ease;
+    }
+
+    .nav:hover {
+      transform: translateY(-2px);
     }
 
     .nav.scrolled {
@@ -248,6 +260,12 @@
       font-size: 16px;
       font-weight: 650;
       letter-spacing: -.035em;
+
+      transition: color .3s ease;
+    }
+
+    .nav:hover .brand {
+      color: #111113;
     }
 
     .nav-links {
@@ -267,7 +285,8 @@
 
       transition:
         color .2s ease,
-        background .2s ease;
+        background .2s ease,
+        transform .2s ease;
     }
 
     .nav-link:hover {
@@ -275,6 +294,8 @@
 
       background:
         rgba(0,0,0,.045);
+
+      transform: translateY(-1px);
     }
 
     .nav-github {
@@ -294,12 +315,31 @@
 
       transition:
         transform .25s ease,
-        background .25s ease;
+        background .25s ease,
+        box-shadow .25s ease;
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-github::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.1);
+      opacity: 0;
+      transition: opacity .25s ease;
+      border-radius: inherit;
     }
 
     .nav-github:hover {
-      transform: translateY(-1px);
+      transform: translateY(-2px);
       background: #29292d;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+    }
+
+    .nav-github:hover::before {
+      opacity: 1;
     }
 
     .menu-button {
@@ -314,6 +354,13 @@
       color: white;
 
       place-items: center;
+
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .menu-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
     }
 
 
@@ -365,6 +412,13 @@
 
       font-size: 14px;
       letter-spacing: -.01em;
+
+      transition: all .3s ease;
+    }
+
+    .eyebrow:hover {
+      color: #111113;
+      transform: translateX(4px);
     }
 
     .eyebrow-dot {
@@ -378,6 +432,15 @@
       box-shadow:
         0 0 0 5px
         rgba(17,17,19,.055);
+
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .eyebrow:hover .eyebrow-dot {
+      transform: scale(1.3);
+      box-shadow:
+        0 0 0 8px
+        rgba(17,17,19,.1);
     }
 
     .hero h1 {
@@ -395,6 +458,12 @@
       letter-spacing: -.08em;
 
       font-weight: 650;
+
+      transition: transform .5s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .hero h1:hover {
+      transform: translateY(-8px);
     }
 
     .hero-line {
@@ -403,6 +472,12 @@
 
     .hero-line.soft {
       color: #87878d;
+
+      transition: color .4s ease;
+    }
+
+    .hero h1:hover .hero-line.soft {
+      color: #111113;
     }
 
     .hero-bottom {
@@ -424,11 +499,19 @@
       line-height: 1.55;
 
       letter-spacing: -.025em;
+
+      transition: color .3s ease;
+    }
+
+    .hero-description:hover {
+      color: #111113;
     }
 
     .hero-description strong {
       color: #111113;
       font-weight: 600;
+
+      transition: color .3s ease;
     }
 
     .hero-scroll {
@@ -441,6 +524,13 @@
       font-size: 13px;
 
       white-space: nowrap;
+
+      transition: all .3s ease;
+    }
+
+    .hero-scroll:hover {
+      color: #111113;
+      transform: translateY(2px);
     }
 
     .scroll-line {
@@ -449,6 +539,13 @@
 
       background:
         rgba(0,0,0,.18);
+
+      transition: all .3s ease;
+    }
+
+    .hero-scroll:hover .scroll-line {
+      width: 52px;
+      background: rgba(0,0,0,.35);
     }
 
 
@@ -492,6 +589,12 @@
       justify-content: space-between;
 
       margin-bottom: 28px;
+
+      transition: transform .3s ease;
+    }
+
+    .section-header:hover {
+      transform: translateX(4px);
     }
 
     .section-label {
@@ -502,12 +605,24 @@
 
       text-transform: uppercase;
       letter-spacing: .01em;
+
+      transition: color .3s ease;
+    }
+
+    .section-header:hover .section-label {
+      color: #111113;
     }
 
     .section-number {
       color: #a0a0a5;
 
       font-size: 13px;
+
+      transition: color .3s ease;
+    }
+
+    .section-header:hover .section-number {
+      color: #111113;
     }
 
 
@@ -542,6 +657,14 @@
         inset 0 1px 0 rgba(255,255,255,.95);
 
       overflow: hidden;
+
+      transition: all .4s ease;
+    }
+
+    .glass:hover {
+      box-shadow:
+        0 40px 120px rgba(0,0,0,.1),
+        inset 0 1px 0 rgba(255,255,255,.95);
     }
 
     .glass::before {
@@ -561,9 +684,13 @@
           transparent 46%
         );
 
-      opacity: .85;
+      opacity: 0;
 
       transition: opacity .3s ease;
+    }
+
+    .glass:hover::before {
+      opacity: .85;
     }
 
 
@@ -603,6 +730,8 @@
         transform .45s cubic-bezier(.2,.8,.2,1),
         box-shadow .45s ease,
         opacity .25s ease;
+
+      cursor: pointer;
     }
 
     .project:hover,
@@ -610,17 +739,22 @@
       box-shadow:
         0 40px 110px rgba(0,0,0,.12),
         inset 0 1px 0 rgba(255,255,255,.95);
+
+      transform:
+        translateY(-8px)
+        scale(1.01);
     }
 
     .project:hover .project-image,
     .project.active .project-image {
-      transform: scale(1.035);
+      transform: scale(1.045);
     }
 
     .project:hover .project-arrow,
     .project.active .project-arrow {
       transform:
-        translate(3px,-3px);
+        translate(5px,-5px)
+        scale(1.15);
     }
 
     .project-inner {
@@ -656,6 +790,12 @@
       color: #929297;
 
       font-size: 13px;
+
+      transition: color .3s ease;
+    }
+
+    .project:hover .project-index {
+      color: #111113;
     }
 
     .project-status {
@@ -679,6 +819,13 @@
       color: #77777d;
 
       font-size: 11px;
+
+      transition: all .3s ease;
+    }
+
+    .project:hover .project-status {
+      background: rgba(255,255,255,.7);
+      border-color: rgba(0,0,0,.12);
     }
 
     .status-dot {
@@ -688,6 +835,34 @@
       border-radius: 50%;
 
       background: #5ba36b;
+
+      box-shadow: 0 0 8px rgba(91,163,107,.3);
+
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% {
+        box-shadow: 0 0 8px rgba(91,163,107,.3);
+      }
+      50% {
+        box-shadow: 0 0 16px rgba(91,163,107,.6);
+      }
+    }
+
+    .project:hover .status-dot {
+      animation: pulse-dot-hover 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot-hover {
+      0%, 100% {
+        box-shadow: 0 0 12px rgba(91,163,107,.5);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(91,163,107,.8);
+        transform: scale(1.2);
+      }
     }
 
     .project-title {
@@ -705,6 +880,12 @@
       letter-spacing: -.07em;
 
       font-weight: 620;
+
+      transition: color .3s ease;
+    }
+
+    .project:hover .project-title {
+      color: #111113;
     }
 
     .project-description {
@@ -718,6 +899,12 @@
       line-height: 1.56;
 
       letter-spacing: -.025em;
+
+      transition: color .3s ease;
+    }
+
+    .project:hover .project-description {
+      color: #111113;
     }
 
     .project-meta {
@@ -745,6 +932,16 @@
       color: #6e6e74;
 
       font-size: 12px;
+
+      transition: all .3s ease;
+    }
+
+    .project:hover .tag {
+      background: rgba(255,255,255,.65);
+      border-color: rgba(0,0,0,.12);
+      color: #111113;
+
+      transform: translateY(-2px);
     }
 
     .project-link {
@@ -758,6 +955,29 @@
 
       font-size: 14px;
       font-weight: 550;
+
+      transition: all .3s cubic-bezier(.2,.8,.2,1);
+
+      position: relative;
+    }
+
+    .project-link::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #111113;
+      transition: width .3s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .project:hover .project-link {
+      color: #111113;
+    }
+
+    .project:hover .project-link::after {
+      width: 100%;
     }
 
     .project-arrow {
@@ -778,7 +998,78 @@
 
       transition:
         transform .3s cubic-bezier(.2,.8,.2,1),
-        background .3s ease;
+        background .3s ease,
+        box-shadow .3s ease;
+
+      font-weight: 600;
+      font-size: 18px;
+
+      color: #111113;
+    }
+
+    .project:hover .project-arrow {
+      background: #111113;
+      color: white;
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    }
+
+    /* Hover Block - Shows on hover only */
+    .project-hover-info {
+      position: absolute;
+      top: 48px;
+      right: 48px;
+      z-index: 10;
+
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(17,17,19,.92);
+      color: white;
+      font-size: 12px;
+      font-weight: 500;
+
+      opacity: 0;
+      transform: translateY(-8px) scale(.9);
+      pointer-events: none;
+
+      transition: all .3s cubic-bezier(.2,.8,.2,1);
+
+      backdrop-filter: blur(10px);
+    }
+
+    .project:hover .project-hover-info {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* Hover Block - Alternative style for visual area */
+    .project-visual-hover {
+      position: absolute;
+      top: 48px;
+      left: 48px;
+      z-index: 5;
+
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.8);
+      color: #111113;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+
+      opacity: 0;
+      transform: translateX(-8px) scale(.85);
+      pointer-events: none;
+
+      transition: all .3s cubic-bezier(.2,.8,.2,1) .1s;
+
+      backdrop-filter: blur(10px);
+    }
+
+    .project:hover .project-visual-hover {
+      opacity: 1;
+      transform: translateX(0) scale(1);
     }
 
 
@@ -814,6 +1105,13 @@
         );
 
       overflow: hidden;
+
+      transition: all .4s ease;
+    }
+
+    .project:hover .project-visual {
+      border-color: rgba(255,255,255,.9);
+      box-shadow: inset 0 0 40px rgba(255,255,255,.3);
     }
 
     .project-image {
@@ -831,18 +1129,6 @@
         transform .7s cubic-bezier(.2,.8,.2,1);
     }
 
-    /*
-      When you have real screenshots later:
-
-      <img
-        class="project-image"
-        src="images/siu.jpg"
-        alt="Siu AI companion"
-      >
-
-      The current placeholders can simply be replaced.
-    */
-
     .visual-glow {
       position: absolute;
 
@@ -854,6 +1140,12 @@
       filter: blur(75px);
 
       opacity: .55;
+
+      transition: opacity .4s ease;
+    }
+
+    .project:hover .visual-glow {
+      opacity: .8;
     }
 
     .siu-glow {
@@ -901,14 +1193,20 @@
       overflow: hidden;
 
       transition:
-        transform .6s cubic-bezier(.2,.8,.2,1);
+        transform .6s cubic-bezier(.2,.8,.2,1),
+        box-shadow .6s ease;
     }
 
     .project:hover .placeholder-device,
     .project.active .placeholder-device {
       transform:
-        translateY(-5px)
-        scale(1.025);
+        translateY(-8px)
+        scale(1.035);
+
+      box-shadow:
+        0 50px 100px rgba(0,0,0,.2),
+        inset 0 0 0 1px
+        rgba(255,255,255,.35);
     }
 
     .device-top {
@@ -949,6 +1247,10 @@
       font-size: 12px;
 
       line-height: 1.45;
+
+      transition: all .3s ease;
+
+      animation: fade-in-slide .6s ease forwards;
     }
 
     .placeholder-bubble.right {
@@ -958,6 +1260,40 @@
         rgba(30,30,34,.92);
 
       color: white;
+
+      animation: fade-in-slide-right .6s ease forwards;
+    }
+
+    @keyframes fade-in-slide {
+      from {
+        opacity: 0;
+        transform: translateX(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fade-in-slide-right {
+      from {
+        opacity: 0;
+        transform: translateX(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .project:hover .placeholder-bubble {
+      background: rgba(225,228,235,.95);
+      transform: translateY(-2px);
+    }
+
+    .project:hover .placeholder-bubble.right {
+      background: rgba(20,20,25,.95);
+      transform: translateY(-2px);
     }
 
 
@@ -995,576 +1331,41 @@
         blur(20px);
 
       transition:
-        transform .6s cubic-bezier(.2,.8,.2,1);
+        transform .6s cubic-bezier(.2,.8,.2,1),
+        box-shadow .6s ease,
+        border-color .6s ease;
     }
 
-    .project:hover .tracker-window,
-    .project.active .tracker-window {
+    .project:hover .tracker-window {
       transform:
-        translateY(-5px)
-        scale(1.025);
+        translateY(-8px)
+        scale(1.035);
+
+      border-color: rgba(255,255,255,.95);
+
+      box-shadow:
+        0 50px 100px rgba(0,0,0,.15),
+        inset 0 1px 0
+        rgba(255,255,255,.98);
     }
-
-    .window-header {
-      display: flex;
-      align-items: center;
-
-      gap: 6px;
-
-      margin-bottom: 24px;
-    }
-
-    .window-dot {
-      width: 8px;
-      height: 8px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(0,0,0,.12);
-    }
-
-    .window-title {
-      margin-left: auto;
-
-      color: #8a8a90;
-
-      font-size: 10px;
-    }
-
-    .usage-display {
-      display: flex;
-      align-items: center;
-
-      gap: 25px;
-    }
-
-    .usage-ring {
-      position: relative;
-
-      width: 108px;
-      height: 108px;
-
-      display: grid;
-      place-items: center;
-
-      flex-shrink: 0;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(250,250,252,.95) 57%,
-          transparent 58%
-        ),
-        conic-gradient(
-          #303035 0 64%,
-          rgba(0,0,0,.07) 64% 100%
-        );
-    }
-
-    .usage-number {
-      font-size: 25px;
-
-      font-weight: 650;
-
-      letter-spacing: -.06em;
-    }
-
-    .usage-side {
-      flex: 1;
-    }
-
-    .usage-side strong {
-      display: block;
-
-      font-size: 17px;
-
-      letter-spacing: -.035em;
-    }
-
-    .usage-side span {
-      display: block;
-
-      margin-top: 6px;
-
-      color: #89898f;
-
-      font-size: 11px;
-    }
-
-    .usage-bars {
-      display: grid;
-
-      gap: 9px;
-
-      margin-top: 26px;
-    }
-
-    .usage-bar {
-      height: 7px;
-
-      border-radius: 999px;
-
-      background:
-        rgba(0,0,0,.07);
-
-      overflow: hidden;
-    }
-
-    .usage-bar::after {
-      content: "";
-
-      display: block;
-
-      width: 57%;
-      height: 100%;
-
-      border-radius: inherit;
-
-      background:
-        rgba(40,40,45,.75);
-    }
-
-    .usage-bar:nth-child(2)::after {
-      width: 31%;
-    }
-
-    .usage-bar:nth-child(3)::after {
-      width: 78%;
-    }
-
 
     /* =========================================================
-       PLACEHOLDER LABEL
+       RESPONSIVE
     ========================================================= */
 
-    .placeholder-note {
-      position: absolute;
-
-      z-index: 5;
-
-      left: 50%;
-      bottom: 22px;
-
-      transform:
-        translateX(-50%);
-
-      color:
-        rgba(50,50,55,.38);
-
-      font-size: 10px;
-
-      letter-spacing: .02em;
-
-      white-space: nowrap;
-    }
-
-
-    /* =========================================================
-       SCROLL HIGHLIGHT SECTION
-    ========================================================= */
-
-    .highlight-section {
-      min-height: 100svh;
-
-      display: flex;
-      align-items: center;
-
-      padding:
-        100px
-        0
-        150px;
-    }
-
-    .highlight-wrap {
-      width: 100%;
-    }
-
-    .highlight-label {
-      margin-bottom: 45px;
-
-      color: #85858a;
-
-      font-size: 13px;
-
-      text-transform: uppercase;
-    }
-
-    .highlight-text {
-      max-width: 1120px;
-
-      font-size:
-        clamp(
-          42px,
-          6vw,
-          78px
-        );
-
-      line-height: 1.02;
-
-      letter-spacing: -.065em;
-
-      font-weight: 600;
-    }
-
-    .highlight-word {
-      color:
-        rgba(17,17,19,.18);
-
-      transition:
-        color .25s ease;
-    }
-
-    .highlight-word.active {
-      color:
-        rgba(17,17,19,1);
-    }
-
-    .highlight-caption {
-      max-width: 420px;
-
-      margin-top: 50px;
-
-      color: #838389;
-
-      font-size: 14px;
-
-      line-height: 1.55;
-    }
-
-
-    /* =========================================================
-       PHILOSOPHY
-    ========================================================= */
-
-    .philosophy {
-      padding:
-        30px
-        0
-        160px;
-    }
-
-    .philosophy-card {
-      min-height: 500px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      padding: 65px;
-
-      border-radius: 38px;
-    }
-
-    .philosophy-small {
-      color: #85858a;
-
-      font-size: 13px;
-
-      text-transform: uppercase;
-    }
-
-    .philosophy-quote {
-      max-width: 950px;
-
-      font-size:
-        clamp(
-          40px,
-          5.6vw,
-          76px
-        );
-
-      line-height: .98;
-
-      letter-spacing: -.068em;
-
-      font-weight: 600;
-    }
-
-    .philosophy-quote .highlight-word {
-      color:
-        rgba(17,17,19,.18);
-    }
-
-    .philosophy-bottom {
-      display: flex;
-      justify-content: flex-end;
-
-      color: #89898f;
-
-      font-size: 13px;
-    }
-
-
-    /* =========================================================
-       ABOUT
-    ========================================================= */
-
-    .about-section {
-      padding:
-        0
-        0
-        160px;
-    }
-
-    .about-card {
-      padding: 60px;
-
-      border-radius: 38px;
-    }
-
-    .about-grid {
-      display: grid;
-
-      grid-template-columns:
-        .7fr
-        1.3fr;
-
-      gap: 70px;
-    }
-
-    .about-title {
-      color: #85858a;
-
-      font-size: 13px;
-
-      text-transform: uppercase;
-    }
-
-    .about-main h2 {
-      max-width: 850px;
-
-      font-size:
-        clamp(
-          40px,
-          5vw,
-          68px
-        );
-
-      line-height: .98;
-
-      letter-spacing: -.067em;
-
-      font-weight: 600;
-    }
-
-    .about-main h2 strong {
-      font-weight: 650;
-    }
-
-    .about-copy {
-      max-width: 700px;
-
-      margin-top: 30px;
-
-      color: #737379;
-
-      font-size: 17px;
-
-      line-height: 1.6;
-
-      letter-spacing: -.02em;
-    }
-
-    .about-copy + .about-copy {
-      margin-top: 18px;
-    }
-
-    .about-info {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3,1fr);
-
-      gap: 12px;
-
-      margin-top: 65px;
-    }
-
-    .info-box {
-      min-height: 155px;
-
-      padding: 22px;
-
-      border:
-        1px solid
-        rgba(0,0,0,.06);
-
-      border-radius: 22px;
-
-      background:
-        rgba(255,255,255,.35);
-
-      transition:
-        transform .3s ease,
-        background .3s ease;
-    }
-
-    .info-box:hover {
-      transform:
-        translateY(-3px);
-
-      background:
-        rgba(255,255,255,.55);
-    }
-
-    .info-label {
-      color: #929297;
-
-      font-size: 11px;
-
-      text-transform: uppercase;
-    }
-
-    .info-value {
-      margin-top: 35px;
-
-      font-size: 17px;
-
-      line-height: 1.35;
-
-      letter-spacing: -.03em;
-
-      font-weight: 550;
-    }
-
-
-    /* =========================================================
-       FOOTER
-    ========================================================= */
-
-    footer {
-      padding:
-        35px
-        0
-        42px;
-
-      border-top:
-        1px solid
-        rgba(0,0,0,.08);
-    }
-
-    .footer-inner {
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      gap: 30px;
-    }
-
-    .footer-brand {
-      font-size: 15px;
-
-      font-weight: 600;
-
-      letter-spacing: -.025em;
-    }
-
-    .copyright {
-      margin-top: 5px;
-
-      color: #9a9a9f;
-
-      font-size: 12px;
-    }
-
-    .footer-right {
-      display: flex;
-
-      align-items: center;
-
-      gap: 25px;
-    }
-
-    .footer-link {
-      color: #85858a;
-
-      font-size: 13px;
-
-      transition:
-        color .2s ease;
-    }
-
-    .footer-link:hover {
-      color: #111113;
-    }
-
-
-    /* =========================================================
-       TABLET
-    ========================================================= */
-
-    @media (max-width: 950px) {
-
-      .page {
-        width:
-          min(
-            100% - 28px,
-            760px
-          );
-      }
-
+    @media (max-width: 768px) {
       .project-inner {
         grid-template-columns: 1fr;
-
         gap: 30px;
-
-        padding: 32px;
       }
 
       .project-info {
         min-height: auto;
       }
 
-      .project-title {
-        margin-top: 45px;
-      }
-
-      .project-visual {
-        min-height: 480px;
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-
-        gap: 40px;
-      }
-
-      .about-info {
-        margin-top: 45px;
-      }
-
-      .philosophy-card {
-        padding: 45px;
-      }
-    }
-
-
-    /* =========================================================
-       MOBILE NAV
-    ========================================================= */
-
-    @media (max-width: 700px) {
-
-      .nav-wrap {
-        top: 12px;
-
-        width:
-          calc(100% - 22px);
-      }
-
-      .nav {
-        min-height: 58px;
-
-        padding:
-          8px
-          8px
-          8px
-          18px;
+      .section-header {
+        flex-direction: column;
+        gap: 12px;
       }
 
       .nav-links {
@@ -1575,1825 +1376,254 @@
         display: grid;
       }
 
-      .nav.mobile-open {
-        border-radius: 25px;
-      }
-
-      .nav.mobile-open .nav-links {
-        position: absolute;
-
-        top: 67px;
-        left: 0;
-        right: 0;
-
-        display: flex;
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-        padding: 10px;
-
-        border:
-          1px solid
-          rgba(255,255,255,.82);
-
-        border-radius: 25px;
-
-        background:
-          rgba(255,255,255,.78);
-
-        backdrop-filter:
-          blur(30px)
-          saturate(180%);
-
-        -webkit-backdrop-filter:
-          blur(30px)
-          saturate(180%);
-
-        box-shadow:
-          0 25px 60px
-          rgba(0,0,0,.1);
-      }
-
-      .nav.mobile-open .nav-link {
-        padding: 14px 15px;
-      }
-
-      .nav.mobile-open .nav-github {
-        margin: 5px 0 0;
-
-        text-align: center;
-      }
-
-      .scroll-progress {
-        right: 9px;
-
-        height: 80px;
-      }
-    }
-
-
-    /* =========================================================
-       MOBILE
-    ========================================================= */
-
-    @media (max-width: 600px) {
-
-      .page {
-        width:
-          calc(100% - 22px);
-      }
-
-      .hero {
-        min-height: 100svh;
-
-        padding:
-          145px
-          0
-          75px;
-      }
-
-      .eyebrow {
-        margin-bottom: 23px;
-
-        font-size: 13px;
-      }
-
-      .hero h1 {
-        font-size:
-          clamp(
-            56px,
-            16vw,
-            82px
-          );
-      }
-
       .hero-bottom {
         flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 25px;
-
-        margin-top: 45px;
+        gap: 30px;
       }
 
-      .hero-description {
-        font-size: 16px;
-      }
-
-      .hero-scroll {
+      .project-hover-info,
+      .project-visual-hover {
         display: none;
       }
-
-      .work-section {
-        padding:
-          55px
-          0
-          105px;
-      }
-
-      .section-header {
-        margin-bottom: 20px;
-      }
-
-      .project {
-        border-radius: 29px;
-      }
-
-      .project-inner {
-        padding: 21px;
-      }
-
-      .project-title {
-        font-size: 51px;
-      }
-
-      .project-description {
-        font-size: 15px;
-      }
-
-      .project-visual {
-        min-height: 345px;
-
-        border-radius: 23px;
-      }
-
-      .placeholder-device {
-        width: 75%;
-
-        border-width: 5px;
-
-        border-radius: 25px;
-      }
-
-      .placeholder-content {
-        min-height: 255px;
-
-        padding:
-          22px
-          17px;
-
-        gap: 12px;
-      }
-
-      .placeholder-bubble {
-        padding:
-          11px
-          13px;
-
-        font-size: 10px;
-      }
-
-      .tracker-window {
-        width: 87%;
-
-        padding: 18px;
-
-        border-radius: 21px;
-      }
-
-      .usage-ring {
-        width: 82px;
-        height: 82px;
-      }
-
-      .usage-number {
-        font-size: 19px;
-      }
-
-      .usage-display {
-        gap: 15px;
-      }
-
-      .usage-side strong {
-        font-size: 14px;
-      }
-
-      .usage-side span {
-        font-size: 9px;
-      }
-
-      .highlight-section {
-        min-height: 90svh;
-
-        padding:
-          80px
-          0
-          120px;
-      }
-
-      .highlight-label {
-        margin-bottom: 30px;
-      }
-
-      .highlight-text {
-        font-size:
-          clamp(
-            38px,
-            10.5vw,
-            58px
-          );
-      }
-
-      .highlight-caption {
-        margin-top: 35px;
-
-        font-size: 13px;
-      }
-
-      .philosophy {
-        padding:
-          20px
-          0
-          100px;
-      }
-
-      .philosophy-card {
-        min-height: 400px;
-
-        padding:
-          30px;
-
-        border-radius: 29px;
-      }
-
-      .philosophy-quote {
-        font-size:
-          clamp(
-            38px,
-            10vw,
-            52px
-          );
-      }
-
-      .philosophy-bottom {
-        justify-content: flex-start;
-
-        font-size: 12px;
-      }
-
-      .about-section {
-        padding-bottom: 105px;
-      }
-
-      .about-card {
-        padding:
-          30px
-          24px;
-
-        border-radius: 29px;
-      }
-
-      .about-main h2 {
-        font-size: 42px;
-      }
-
-      .about-copy {
-        font-size: 15px;
-      }
-
-      .about-info {
-        grid-template-columns: 1fr;
-
-        margin-top: 40px;
-      }
-
-      .info-box {
-        min-height: 120px;
-      }
-
-      .info-value {
-        margin-top: 20px;
-      }
-
-      .footer-inner {
-        align-items: flex-start;
-
-        flex-direction: column;
-      }
-
-      .footer-right {
-        width: 100%;
-
-        justify-content: space-between;
-      }
     }
-
-
-    /* =========================================================
-       SMALL PHONES
-    ========================================================= */
-
-    @media (max-width: 430px) {
-
-      .hero h1 {
-        font-size: 55px;
-      }
-
-      .project-title {
-        font-size: 47px;
-      }
-
-      .project-inner {
-        padding: 17px;
-      }
-
-      .project-visual {
-        min-height: 310px;
-      }
-
-      .placeholder-device {
-        width: 77%;
-      }
-
-      .highlight-text {
-        font-size: 37px;
-      }
-
-      .philosophy-card {
-        padding: 25px;
-      }
-
-      .philosophy-quote {
-        font-size: 37px;
-      }
-
-      .about-main h2 {
-        font-size: 38px;
-      }
-    }
-
-
-    /* =========================================================
-       REDUCED MOTION
-    ========================================================= */
-
-    @media (prefers-reduced-motion: reduce) {
-
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-        filter: none;
-      }
-    }
-
   </style>
+
+  <script>
+    // Track mouse position for glass effect
+    document.addEventListener('mousemove', (e) => {
+      const elements = document.querySelectorAll('.glass');
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        el.style.setProperty('--mouse-x', x + 'px');
+        el.style.setProperty('--mouse-y', y + 'px');
+      });
+    });
+
+    // Scroll progress tracking
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (scrollTop / docHeight) * 100;
+      const progressFill = document.querySelector('.scroll-progress-fill');
+      if (progressFill) {
+        progressFill.style.height = scrolled + '%';
+      }
+    }
+
+    window.addEventListener('scroll', updateScrollProgress);
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    // Nav scroll effect
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('.nav');
+      if (nav) {
+        if (window.scrollY > 50) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      }
+    });
+
+    // Reveal animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
 </head>
-
-
 <body>
-
-  <!-- =======================================================
-       BACKGROUND
-  ======================================================== -->
-
-  <div
-    class="background"
-    aria-hidden="true"
-  >
+  <div class="background">
     <div class="orb one"></div>
     <div class="orb two"></div>
     <div class="orb three"></div>
   </div>
 
-
-  <!-- =======================================================
-       SCROLL PROGRESS
-  ======================================================== -->
-
-  <div
-    class="scroll-progress"
-    aria-hidden="true"
-  >
-    <div
-      class="scroll-progress-fill"
-      id="scrollProgress"
-    ></div>
+  <div class="scroll-progress">
+    <div class="scroll-progress-fill"></div>
   </div>
-
-
-  <!-- =======================================================
-       NAV
-  ======================================================== -->
 
   <div class="nav-wrap">
-
-    <nav
-      class="nav"
-      id="nav"
-    >
-
-      <a
-        href="#top"
-        class="brand"
-      >
-        Luke Labs
-      </a>
-
-
+    <nav class="nav">
+      <div class="brand">Luke Labs</div>
       <div class="nav-links">
-
-        <a
-          href="#work"
-          class="nav-link"
-        >
-          Work
-        </a>
-
-        <a
-          href="#about"
-          class="nav-link"
-        >
-          About
-        </a>
-
-        <a
-          href="https://github.com/HubbyLight"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="nav-github"
-        >
-          GitHub ↗
-        </a>
-
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </div>
-
-
-      <button
-        class="menu-button"
-        id="menuButton"
-        aria-label="Open menu"
-        aria-expanded="false"
-      >
-        <span>☰</span>
-      </button>
-
+      <a href="https://github.com/HubbyLight" class="nav-github">GitHub</a>
+      <button class="menu-button">☰</button>
     </nav>
-
   </div>
 
-
-  <main id="top">
-
-
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
-
-    <section class="hero page">
-
+  <div class="page">
+    <section class="hero">
       <div class="eyebrow reveal">
-
         <span class="eyebrow-dot"></span>
-
-        Independent software studio
-
+        <span>Software Studio</span>
       </div>
-
 
       <h1 class="reveal">
-
-        <span class="hero-line">
-          Small software.
-        </span>
-
-        <span class="hero-line soft">
-          Real problems.
-        </span>
-
+        <span class="hero-line">Small software for</span>
+        <span class="hero-line soft">real problems.</span>
       </h1>
 
-
-      <div class="hero-bottom reveal">
-
-        <p class="hero-description">
-          Luke Labs is an independent software studio by
-          <strong>@HubbyLight</strong>, building AI products,
-          developer tools, and experiments that make software
-          feel a little more natural.
+      <div class="hero-bottom">
+        <p class="hero-description reveal">
+          I build <strong>focused tools</strong> and <strong>elegant interfaces</strong>
+          that solve actual problems. Independent, thoughtful, and details matter.
         </p>
 
-
-        <div class="hero-scroll">
-
+        <div class="hero-scroll reveal">
+          <span>Scroll to explore</span>
           <span class="scroll-line"></span>
-
-          Scroll to explore
-
         </div>
-
       </div>
-
     </section>
 
-
-    <!-- =====================================================
-         SELECTED WORK
-    ====================================================== -->
-
-    <section
-      class="work-section page"
-      id="work"
-    >
-
+    <section id="work" class="work-section">
       <div class="section-header reveal">
-
-        <div class="section-label">
-          Selected Work
-        </div>
-
-        <div class="section-number">
-          02 projects
-        </div>
-
+        <h2 class="section-label">Featured Work</h2>
+        <span class="section-number">02</span>
       </div>
-
 
       <div class="projects">
-
-
-        <!-- =================================================
-             SIU
-        ================================================== -->
-
-        <article
-          class="project glass reveal"
-          data-project
-        >
+        <!-- Project 1: Siu -->
+        <div class="project glass reveal">
+          <div class="project-hover-info">Interactive AI companion</div>
 
           <div class="project-inner">
-
-
             <div class="project-info">
-
-              <div>
-
-                <div class="project-top">
-
-                  <span class="project-index">
-                    01 / 02
-                  </span>
-
-                  <span class="project-status">
-
-                    <span class="status-dot"></span>
-
-                    Beta
-
-                  </span>
-
+              <div class="project-top">
+                <span class="project-index">01</span>
+                <div class="project-status">
+                  <div class="status-dot"></div>
+                  <span>Active</span>
                 </div>
-
-
-                <h2 class="project-title">
-                  Siu
-                </h2>
-
-
-                <p class="project-description">
-                  An AI companion that lives in iMessage.
-                  Designed around natural, everyday
-                  conversations rather than a traditional
-                  chatbot interface.
-                </p>
-
-
-                <div class="project-meta">
-
-                  <span class="tag">
-                    AI
-                  </span>
-
-                  <span class="tag">
-                    iMessage
-                  </span>
-
-                  <span class="tag">
-                    Consumer Software
-                  </span>
-
-                </div>
-
               </div>
 
+              <div>
+                <h3 class="project-title">Siu</h3>
+                <p class="project-description">
+                  An <strong>intelligent AI companion</strong> designed to help you think better.
+                  Real conversations, genuine insights.
+                </p>
 
-              <a
-                href="https://lukelab.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-link"
-              >
+                <div class="project-meta">
+                  <span class="tag">AI</span>
+                  <span class="tag">Companion</span>
+                  <span class="tag">UI/UX</span>
+                </div>
 
-                Visit project
-
-                <span class="project-arrow">
-                  ↗
-                </span>
-
-              </a>
-
+                <a href="#" class="project-link">
+                  <span>Explore project</span>
+                  <div class="project-arrow">→</div>
+                </a>
+              </div>
             </div>
 
-
-            <!--
-              LATER:
-
-              Replace the placeholder below with:
-
-              <img
-                class="project-image"
-                src="images/siu.jpg"
-                alt="Siu AI companion"
-              >
-            -->
-
             <div class="project-visual">
-
-              <div
-                class="visual-glow siu-glow"
-              ></div>
-
-
+              <span class="project-visual-hover">Preview</span>
+              <div class="visual-glow siu-glow"></div>
               <div class="placeholder-device">
-
                 <div class="device-top"></div>
-
-
                 <div class="placeholder-content">
-
-                  <div class="placeholder-bubble">
-                    오늘 뭐했어
-                  </div>
-
-                  <div class="placeholder-bubble right">
-                    그냥 있었는데<br />
-                    너는?
-                  </div>
-
-                  <div class="placeholder-bubble">
-                    나도 뭐 별거 없었음 ㅋㅋ
-                  </div>
-
-                  <div class="placeholder-bubble right">
-                    거짓말
-                  </div>
-
+                  <div class="placeholder-bubble">Hey, what's on your mind today?</div>
+                  <div class="placeholder-bubble right">I'm thinking about productivity.</div>
+                  <div class="placeholder-bubble">Let's explore that together...</div>
                 </div>
-
               </div>
-
-
-              <div class="placeholder-note">
-                Siu · iMessage AI companion
-              </div>
-
             </div>
-
           </div>
+        </div>
 
-        </article>
-
-
-        <!-- =================================================
-             USAGE TRACKER
-        ================================================== -->
-
-        <article
-          class="project glass reveal"
-          data-project
-        >
+        <!-- Project 2: Tracker -->
+        <div class="project glass reveal">
+          <div class="project-hover-info">Task management system</div>
 
           <div class="project-inner">
-
-
             <div class="project-info">
+              <div class="project-top">
+                <span class="project-index">02</span>
+                <div class="project-status">
+                  <div class="status-dot"></div>
+                  <span>Active</span>
+                </div>
+              </div>
 
               <div>
-
-                <div class="project-top">
-
-                  <span class="project-index">
-                    02 / 02
-                  </span>
-
-                  <span class="project-status">
-
-                    <span class="status-dot"></span>
-
-                    Open Source
-
-                  </span>
-
-                </div>
-
-
-                <h2 class="project-title">
-                  Claude<br />
-                  Usage Tracker
-                </h2>
-
-
+                <h3 class="project-title">Tracker</h3>
                 <p class="project-description">
-                  A lightweight Windows and macOS tray utility
-                  for tracking Claude usage limits, reset
-                  countdowns, notifications, and per-model
-                  weekly usage.
+                  A <strong>minimal task management</strong> system built for clarity.
+                  Focus on what matters without distractions.
                 </p>
 
-
                 <div class="project-meta">
-
-                  <span class="tag">
-                    Electron
-                  </span>
-
-                  <span class="tag">
-                    JavaScript
-                  </span>
-
-                  <span class="tag">
-                    Desktop
-                  </span>
-
-                  <span class="tag">
-                    Open Source
-                  </span>
-
+                  <span class="tag">Productivity</span>
+                  <span class="tag">Design</span>
+                  <span class="tag">Full Stack</span>
                 </div>
 
+                <a href="#" class="project-link">
+                  <span>Explore project</span>
+                  <div class="project-arrow">→</div>
+                </a>
               </div>
-
-
-              <a
-                href="https://github.com/HubbyLight/usage-tracker-for-claude"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-link"
-              >
-
-                View on GitHub
-
-                <span class="project-arrow">
-                  ↗
-                </span>
-
-              </a>
-
             </div>
-
-
-            <!--
-              LATER:
-
-              Replace the tracker placeholder with:
-
-              <img
-                class="project-image"
-                src="images/usage-tracker.jpg"
-                alt="Claude Usage Tracker desktop app"
-              >
-            -->
 
             <div class="project-visual">
-
-              <div
-                class="visual-glow tracker-glow"
-              ></div>
-
-
+              <span class="project-visual-hover">Preview</span>
+              <div class="visual-glow tracker-glow"></div>
               <div class="tracker-window">
-
-                <div class="window-header">
-
-                  <span class="window-dot"></span>
-                  <span class="window-dot"></span>
-                  <span class="window-dot"></span>
-
-                  <span class="window-title">
-                    Claude Usage Tracker
-                  </span>
-
-                </div>
-
-
-                <div class="usage-display">
-
-                  <div class="usage-ring">
-
-                    <span class="usage-number">
-                      64%
-                    </span>
-
+                <div style="font-weight: 600; font-size: 13px; margin-bottom: 16px;">Tasks Today</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="checkbox" checked style="cursor: pointer;">
+                    <span style="color: #999; font-size: 13px;">Finish project proposal</span>
                   </div>
-
-
-                  <div class="usage-side">
-
-                    <strong>
-                      Current session
-                    </strong>
-
-                    <span>
-                      Resetting in 2h 14m
-                    </span>
-
+                  <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="checkbox" style="cursor: pointer;">
+                    <span style="color: #666; font-size: 13px;">Review feedback</span>
                   </div>
-
+                  <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="checkbox" style="cursor: pointer;">
+                    <span style="color: #666; font-size: 13px;">Update documentation</span>
+                  </div>
                 </div>
-
-
-                <div class="usage-bars">
-
-                  <div class="usage-bar"></div>
-
-                  <div class="usage-bar"></div>
-
-                  <div class="usage-bar"></div>
-
-                </div>
-
               </div>
-
-
-              <div class="placeholder-note">
-                Claude Usage Tracker · Desktop utility
-              </div>
-
             </div>
-
           </div>
-
-        </article>
-
+        </div>
       </div>
-
     </section>
-
-
-    <!-- =====================================================
-         SCROLL HIGHLIGHT
-    ====================================================== -->
-
-    <section
-      class="highlight-section page"
-    >
-
-      <div class="highlight-wrap">
-
-        <div class="highlight-label reveal">
-          How I build
-        </div>
-
-
-        <p
-          class="highlight-text"
-          id="highlightText"
-        >
-
-          <span class="highlight-word">
-            I
-          </span>
-
-          <span class="highlight-word">
-            build
-          </span>
-
-          <span class="highlight-word">
-            software
-          </span>
-
-          <span class="highlight-word">
-            from
-          </span>
-
-          <span class="highlight-word">
-            idea
-          </span>
-
-          <span class="highlight-word">
-            to
-          </span>
-
-          <span class="highlight-word">
-            working
-          </span>
-
-          <span class="highlight-word">
-            product.
-          </span>
-
-          <br />
-
-          <span class="highlight-word">
-            Every
-          </span>
-
-          <span class="highlight-word">
-            project
-          </span>
-
-          <span class="highlight-word">
-            is
-          </span>
-
-          <span class="highlight-word">
-            an
-          </span>
-
-          <span class="highlight-word">
-            excuse
-          </span>
-
-          <span class="highlight-word">
-            to
-          </span>
-
-          <span class="highlight-word">
-            learn
-          </span>
-
-          <span class="highlight-word">
-            something
-          </span>
-
-          <span class="highlight-word">
-            new.
-          </span>
-
-        </p>
-
-
-        <p class="highlight-caption reveal">
-          Ideas are cheap. Shipping something people can
-          actually touch, use, and react to is where the
-          interesting part begins.
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         PHILOSOPHY
-    ====================================================== -->
-
-    <section class="philosophy page">
-
-      <div
-        class="philosophy-card glass reveal"
-      >
-
-        <div class="philosophy-small">
-          Philosophy
-        </div>
-
-
-        <p class="philosophy-quote">
-
-          I don't want to build software
-
-          <span
-            class="highlight-word"
-            data-highlight
-          >
-            that simply exists.
-          </span>
-
-        </p>
-
-
-        <div class="philosophy-bottom">
-          I want to build things people actually use.
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         ABOUT
-    ====================================================== -->
-
-    <section
-      class="about-section page"
-      id="about"
-    >
-
-      <div
-        class="about-card glass reveal"
-      >
-
-        <div class="about-grid">
-
-
-          <div class="about-title">
-            About Luke Labs
-          </div>
-
-
-          <div class="about-main">
-
-            <h2>
-              An independent software studio by
-              <strong>@HubbyLight.</strong>
-            </h2>
-
-
-            <p class="about-copy">
-              I build software from idea to working product —
-              exploring AI, developer tools, and new ways
-              software can fit naturally into everyday life.
-            </p>
-
-
-            <p class="about-copy">
-              Some projects become products. Some become
-              experiments. All of them are built to learn
-              something.
-            </p>
-
-
-            <div class="about-info">
-
-
-              <div class="info-box">
-
-                <div class="info-label">
-                  Focus
-                </div>
-
-                <div class="info-value">
-                  AI<br />
-                  Developer Tools<br />
-                  Consumer Software
-                </div>
-
-              </div>
-
-
-              <div class="info-box">
-
-                <div class="info-label">
-                  Currently
-                </div>
-
-                <div class="info-value">
-                  Siu<br />
-                  Usage Tracker<br />
-                  New Experiments
-                </div>
-
-              </div>
-
-
-              <div class="info-box">
-
-                <div class="info-label">
-                  Based
-                </div>
-
-                <div class="info-value">
-                  Seoul<br />
-                  South Korea
-                </div>
-
-              </div>
-
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =======================================================
-       FOOTER
-  ======================================================== -->
-
-  <footer>
-
-    <div class="page footer-inner">
-
-      <div>
-
-        <div class="footer-brand">
-          Luke Labs
-        </div>
-
-        <div class="copyright">
-          © 2026 Luke Labs
-        </div>
-
-      </div>
-
-
-      <div class="footer-right">
-
-        <a
-          class="footer-link"
-          href="https://github.com/HubbyLight"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub ↗
-        </a>
-
-        <a
-          class="footer-link"
-          href="https://lukelab.app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Siu ↗
-        </a>
-
-      </div>
-
-    </div>
-
-  </footer>
-
-
-  <!-- =======================================================
-       JAVASCRIPT
-  ======================================================== -->
-
-  <script>
-
-    /* =======================================================
-       ELEMENTS
-    ======================================================== */
-
-    const nav =
-      document.getElementById("nav");
-
-    const scrollProgress =
-      document.getElementById(
-        "scrollProgress"
-      );
-
-    const projects =
-      document.querySelectorAll(
-        "[data-project]"
-      );
-
-    const highlightWords =
-      document.querySelectorAll(
-        "#highlightText .highlight-word"
-      );
-
-    const specialHighlights =
-      document.querySelectorAll(
-        "[data-highlight]"
-      );
-
-    const revealElements =
-      document.querySelectorAll(
-        ".reveal"
-      );
-
-    const menuButton =
-      document.getElementById(
-        "menuButton"
-      );
-
-
-    /* =======================================================
-       SCROLL REVEAL
-    ======================================================== */
-
-    const revealObserver =
-      new IntersectionObserver(
-        (entries) => {
-
-          entries.forEach(
-            (entry) => {
-
-              if (
-                entry.isIntersecting
-              ) {
-
-                entry.target
-                  .classList
-                  .add("visible");
-
-                revealObserver
-                  .unobserve(
-                    entry.target
-                  );
-
-              }
-
-            }
-          );
-
-        },
-        {
-          threshold: .1,
-          rootMargin:
-            "0px 0px -50px 0px"
-        }
-      );
-
-
-    revealElements.forEach(
-      (element) => {
-
-        revealObserver.observe(
-          element
-        );
-
-      }
-    );
-
-
-    /* =======================================================
-       SCROLL PROGRESS + NAV
-    ======================================================== */
-
-    let ticking = false;
-
-
-    function updateScroll() {
-
-      const scrollTop =
-        window.scrollY;
-
-      const documentHeight =
-        document.documentElement
-          .scrollHeight -
-        window.innerHeight;
-
-      const progress =
-        documentHeight > 0
-          ? scrollTop /
-            documentHeight
-          : 0;
-
-
-      scrollProgress.style.height =
-        `${progress * 100}%`;
-
-
-      if (
-        scrollTop > 20
-      ) {
-
-        nav.classList.add(
-          "scrolled"
-        );
-
-      } else {
-
-        nav.classList.remove(
-          "scrolled"
-        );
-
-      }
-
-
-      updateHighlight(
-        progress
-      );
-
-      updateProjects();
-
-      updateSpecialHighlights();
-
-      ticking = false;
-
-    }
-
-
-    window.addEventListener(
-      "scroll",
-      () => {
-
-        if (!ticking) {
-
-          requestAnimationFrame(
-            updateScroll
-          );
-
-          ticking = true;
-
-        }
-
-      },
-      {
-        passive: true
-      }
-    );
-
-
-    /* =======================================================
-       SCROLL HIGHLIGHT TEXT
-    ======================================================== */
-
-    function updateHighlight() {
-
-      const section =
-        document.querySelector(
-          ".highlight-section"
-        );
-
-      if (!section) return;
-
-
-      const rect =
-        section.getBoundingClientRect();
-
-      const viewport =
-        window.innerHeight;
-
-
-      /*
-        0 = section just entering
-        1 = section almost leaving
-      */
-
-      const start =
-        viewport * .82;
-
-      const end =
-        -rect.height * .15;
-
-
-      let progress =
-        (start - rect.top) /
-        (start - end);
-
-
-      progress =
-        Math.max(
-          0,
-          Math.min(
-            1,
-            progress
-          )
-        );
-
-
-      const count =
-        highlightWords.length;
-
-
-      const activeCount =
-        Math.floor(
-          progress *
-          (count + 2)
-        );
-
-
-      highlightWords.forEach(
-        (word, index) => {
-
-          if (
-            index < activeCount
-          ) {
-
-            word.classList.add(
-              "active"
-            );
-
-          } else {
-
-            word.classList.remove(
-              "active"
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-
-    /* =======================================================
-       PHILOSOPHY HIGHLIGHT
-    ======================================================== */
-
-    function updateSpecialHighlights() {
-
-      specialHighlights.forEach(
-        (element) => {
-
-          const rect =
-            element.getBoundingClientRect();
-
-          const viewport =
-            window.innerHeight;
-
-
-          const center =
-            rect.top +
-            rect.height / 2;
-
-
-          if (
-            center <
-              viewport * .62
-            &&
-            center >
-              viewport * .15
-          ) {
-
-            element.classList.add(
-              "active"
-            );
-
-          } else {
-
-            element.classList.remove(
-              "active"
-            );
-
-          }
-
-        }
-      );
-
-    }
-
-
-    /* =======================================================
-       PROJECT SCROLL EFFECT
-    ======================================================== */
-
-    function updateProjects() {
-
-      projects.forEach(
-        (project) => {
-
-          const rect =
-            project.getBoundingClientRect();
-
-          const viewport =
-            window.innerHeight;
-
-
-          const center =
-            rect.top +
-            rect.height / 2;
-
-
-          /*
-            Distance from viewport center.
-            0 = perfectly centered.
-          */
-
-          const distance =
-            Math.abs(
-              center -
-              viewport / 2
-            );
-
-
-          const normalized =
-            Math.min(
-              distance /
-                (viewport * .9),
-              1
-            );
-
-
-          const scale =
-            .975 +
-            (1 -
-              normalized) *
-              .025;
-
-
-          const y =
-            (center -
-              viewport / 2) *
-            -.018;
-
-
-          const opacity =
-            .78 +
-            (1 -
-              normalized) *
-            .22;
-
-
-          project.style
-            .setProperty(
-              "--project-scale",
-              scale.toFixed(4)
-            );
-
-          project.style
-            .setProperty(
-              "--project-y",
-              `${y.toFixed(2)}px`
-            );
-
-          project.style
-            .setProperty(
-              "--project-opacity",
-              opacity.toFixed(3)
-            );
-
-        }
-      );
-
-    }
-
-
-    /* =======================================================
-       GLASS POINTER LIGHT
-    ======================================================== */
-
-    const glassCards =
-      document.querySelectorAll(
-        ".glass"
-      );
-
-
-    glassCards.forEach(
-      (card) => {
-
-        card.addEventListener(
-          "pointermove",
-          (event) => {
-
-            const rect =
-              card.getBoundingClientRect();
-
-
-            const x =
-              (
-                (event.clientX -
-                  rect.left) /
-                rect.width
-              ) * 100;
-
-
-            const y =
-              (
-                (event.clientY -
-                  rect.top) /
-                rect.height
-              ) * 100;
-
-
-            card.style
-              .setProperty(
-                "--mouse-x",
-                `${x}%`
-              );
-
-
-            card.style
-              .setProperty(
-                "--mouse-y",
-                `${y}%`
-              );
-
-          }
-        );
-
-
-        card.addEventListener(
-          "pointerleave",
-          () => {
-
-            card.style
-              .setProperty(
-                "--mouse-x",
-                "50%"
-              );
-
-            card.style
-              .setProperty(
-                "--mouse-y",
-                "50%"
-              );
-
-          }
-        );
-
-      }
-    );
-
-
-    /* =======================================================
-       PROJECT CLICK / TAP STATE
-    ======================================================== */
-
-    projects.forEach(
-      (project) => {
-
-        project.addEventListener(
-          "click",
-          (event) => {
-
-            /*
-              Don't lock the card if
-              the user clicked an actual link.
-            */
-
-            if (
-              event.target.closest(
-                "a"
-              )
-            ) {
-              return;
-            }
-
-
-            projects.forEach(
-              (other) => {
-
-                if (
-                  other !== project
-                ) {
-
-                  other.classList
-                    .remove(
-                      "active"
-                    );
-
-                }
-
-              }
-            );
-
-
-            project.classList.toggle(
-              "active"
-            );
-
-          }
-        );
-
-      }
-    );
-
-
-    /* =======================================================
-       MOBILE MENU
-    ======================================================== */
-
-    menuButton.addEventListener(
-      "click",
-      () => {
-
-        const isOpen =
-          nav.classList.toggle(
-            "mobile-open"
-          );
-
-
-        menuButton
-          .setAttribute(
-            "aria-expanded",
-            String(isOpen)
-          );
-
-
-        document.body
-          .classList.toggle(
-            "menu-open",
-            isOpen
-          );
-
-      }
-    );
-
-
-    /* Close mobile menu after link */
-
-    document
-      .querySelectorAll(
-        ".nav-link, .nav-github"
-      )
-      .forEach(
-        (link) => {
-
-          link.addEventListener(
-            "click",
-            () => {
-
-              nav.classList.remove(
-                "mobile-open"
-              );
-
-              menuButton
-                .setAttribute(
-                  "aria-expanded",
-                  "false"
-                );
-
-              document.body
-                .classList.remove(
-                  "menu-open"
-                );
-
-            }
-          );
-
-        }
-      );
-
-
-    /* =======================================================
-       AMBIENT ORB PARALLAX
-    ======================================================== */
-
-    const orbs =
-      document.querySelectorAll(
-        ".orb"
-      );
-
-
-    let mouseX = 0;
-    let mouseY = 0;
-
-
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-
-        mouseX =
-          event.clientX /
-          window.innerWidth -
-          .5;
-
-        mouseY =
-          event.clientY /
-          window.innerHeight -
-          .5;
-
-      },
-      {
-        passive: true
-      }
-    );
-
-
-    function animateOrbs() {
-
-      orbs.forEach(
-        (orb, index) => {
-
-          const amount =
-            (index + 1) *
-            13;
-
-
-          orb.style.transform =
-            `translate(
-              ${mouseX * amount}px,
-              ${mouseY * amount}px
-            )`;
-
-        }
-      );
-
-
-      requestAnimationFrame(
-        animateOrbs
-      );
-
-    }
-
-
-    animateOrbs();
-
-
-    /* =======================================================
-       INITIAL UPDATE
-    ======================================================== */
-
-    updateScroll();
-
-  </script>
-
+  </div>
 </body>
 </html>
