@@ -19,6 +19,50 @@
 
   <style>
     /* =========================================================
+       DARK MODE VARIABLES
+    ========================================================= */
+
+    :root {
+      --bg-primary: #f5f5f7;
+      --bg-secondary: #ffffff;
+      --text-primary: #111113;
+      --text-secondary: #77777d;
+      --text-tertiary: #707076;
+      --text-muted: #85858b;
+      --border-light: rgba(255,255,255,.84);
+      --border-dark: rgba(0,0,0,.08);
+      --glass-bg: linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.37));
+      --glass-border: rgba(255,255,255,.84);
+      --glass-backdrop-blur: blur(30px) saturate(170%);
+      --glass-shadow: 0 30px 90px rgba(0,0,0,.075), inset 0 1px 0 rgba(255,255,255,.95);
+      --nav-bg: rgba(255,255,255,.56);
+      --nav-border: rgba(255,255,255,.82);
+      --orb-one: rgba(255,255,255,.95);
+      --orb-two: rgba(183,203,255,.55);
+      --orb-three: rgba(216,204,255,.5);
+    }
+
+    html[data-theme="dark"] {
+      --bg-primary: #0f0f12;
+      --bg-secondary: #1a1a1f;
+      --text-primary: #f5f5f7;
+      --text-secondary: #a0a0a5;
+      --text-tertiary: #888890;
+      --text-muted: #707076;
+      --border-light: rgba(255,255,255,.08);
+      --border-dark: rgba(255,255,255,.12);
+      --glass-bg: linear-gradient(135deg, rgba(30,30,40,.45), rgba(20,20,30,.25));
+      --glass-border: rgba(255,255,255,.1);
+      --glass-backdrop-blur: blur(30px) saturate(120%);
+      --glass-shadow: 0 30px 90px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08);
+      --nav-bg: rgba(20,20,28,.65);
+      --nav-border: rgba(255,255,255,.1);
+      --orb-one: rgba(100,100,120,.4);
+      --orb-two: rgba(80,100,180,.25);
+      --orb-three: rgba(120,100,180,.2);
+    }
+
+    /* =========================================================
        RESET
     ========================================================= */
 
@@ -44,13 +88,15 @@
         Arial,
         sans-serif;
 
-      background: #f5f5f7;
-      color: #111113;
+      background: var(--bg-primary);
+      color: var(--text-primary);
 
       overflow-x: hidden;
 
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+
+      transition: background .35s ease, color .35s ease;
     }
 
     body.menu-open {
@@ -74,6 +120,9 @@
       background: rgba(20, 20, 25, 0.12);
     }
 
+    html[data-theme="dark"] ::selection {
+      background: rgba(200, 200, 220, 0.2);
+    }
 
     /* =========================================================
        BACKGROUND
@@ -103,7 +152,9 @@
           rgba(225,216,255,.55),
           transparent 34%
         ),
-        #f5f5f7;
+        var(--bg-primary);
+
+      transition: background .35s ease;
     }
 
     .orb {
@@ -119,28 +170,28 @@
       opacity: .42;
 
       will-change: transform;
-      transition: opacity .4s ease;
+      transition: opacity .4s ease, background .4s ease;
     }
 
     .orb.one {
       top: -260px;
       left: -180px;
 
-      background: rgba(255,255,255,.95);
+      background: var(--orb-one);
     }
 
     .orb.two {
       top: 18%;
       right: -250px;
 
-      background: rgba(183,203,255,.55);
+      background: var(--orb-two);
     }
 
     .orb.three {
       bottom: -270px;
       left: 32%;
 
-      background: rgba(216,204,255,.5);
+      background: var(--orb-three);
     }
 
 
@@ -165,7 +216,11 @@
 
       z-index: 90;
 
-      transition: opacity .3s ease;
+      transition: opacity .3s ease, background .3s ease;
+    }
+
+    html[data-theme="dark"] .scroll-progress {
+      background: rgba(255,255,255,.08);
     }
 
     .scroll-progress-fill {
@@ -176,13 +231,104 @@
 
       background: rgba(17,17,19,.75);
 
-      transition: height .08s linear;
+      transition: height .08s linear, background .3s ease;
+    }
+
+    html[data-theme="dark"] .scroll-progress-fill {
+      background: rgba(200,200,220,.6);
     }
 
     .scroll-progress:hover {
       background: rgba(0,0,0,.15);
     }
 
+    html[data-theme="dark"] .scroll-progress:hover {
+      background: rgba(255,255,255,.15);
+    }
+
+
+    /* =========================================================
+       DARK MODE TOGGLE
+    ========================================================= */
+
+    .theme-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 95;
+
+      width: 56px;
+      height: 56px;
+
+      border-radius: 50%;
+
+      background: var(--text-primary);
+      color: var(--bg-primary);
+
+      display: grid;
+      place-items: center;
+
+      transition:
+        transform .3s cubic-bezier(.2,.8,.2,1),
+        background .3s ease,
+        box-shadow .3s ease,
+        color .3s ease;
+
+      box-shadow:
+        0 12px 32px rgba(0,0,0,.15);
+
+      border: 1px solid var(--border-dark);
+
+      font-size: 24px;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(20deg);
+      box-shadow:
+        0 20px 48px rgba(0,0,0,.2);
+    }
+
+    .theme-toggle:active {
+      transform: scale(0.95) rotate(20deg);
+    }
+
+    .theme-toggle svg {
+      width: 24px;
+      height: 24px;
+      transition: transform .35s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
+    }
+
+    .theme-toggle .sun {
+      position: absolute;
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+
+    .theme-toggle .moon {
+      position: absolute;
+      opacity: 0;
+      transform: rotate(-180deg) scale(0.7);
+    }
+
+    html[data-theme="dark"] .theme-toggle .sun {
+      opacity: 0;
+      transform: rotate(180deg) scale(0.7);
+    }
+
+    html[data-theme="dark"] .theme-toggle .moon {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+
+    @media (max-width: 768px) {
+      .theme-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+      }
+    }
 
     /* =========================================================
        NAV
@@ -218,12 +364,12 @@
 
       border:
         1px solid
-        rgba(255,255,255,.82);
+        var(--nav-border);
 
       border-radius: 999px;
 
       background:
-        rgba(255,255,255,.56);
+        var(--nav-bg);
 
       backdrop-filter:
         blur(28px)
@@ -240,7 +386,14 @@
       transition:
         background .35s ease,
         box-shadow .35s ease,
-        transform .3s ease;
+        transform .3s ease,
+        border-color .35s ease;
+    }
+
+    html[data-theme="dark"] .nav {
+      box-shadow:
+        0 22px 55px rgba(0,0,0,.4),
+        inset 0 1px 0 rgba(255,255,255,.08);
     }
 
     .nav:hover {
@@ -256,6 +409,15 @@
         inset 0 1px 0 rgba(255,255,255,.95);
     }
 
+    html[data-theme="dark"] .nav.scrolled {
+      background:
+        rgba(20,20,28,.85);
+
+      box-shadow:
+        0 20px 50px rgba(0,0,0,.5),
+        inset 0 1px 0 rgba(255,255,255,.1);
+    }
+
     .brand {
       font-size: 16px;
       font-weight: 650;
@@ -265,7 +427,7 @@
     }
 
     .nav:hover .brand {
-      color: #111113;
+      color: var(--text-primary);
     }
 
     .nav-links {
@@ -279,7 +441,7 @@
 
       border-radius: 999px;
 
-      color: #77777d;
+      color: var(--text-secondary);
 
       font-size: 14px;
 
@@ -290,12 +452,17 @@
     }
 
     .nav-link:hover {
-      color: #111113;
+      color: var(--text-primary);
 
       background:
         rgba(0,0,0,.045);
 
       transform: translateY(-1px);
+    }
+
+    html[data-theme="dark"] .nav-link:hover {
+      background:
+        rgba(255,255,255,.08);
     }
 
     .nav-github {
@@ -307,8 +474,8 @@
 
       border-radius: 999px;
 
-      background: #111113;
-      color: white;
+      background: var(--text-primary);
+      color: var(--bg-primary);
 
       font-size: 14px;
       font-weight: 550;
@@ -338,6 +505,12 @@
       box-shadow: 0 8px 24px rgba(0,0,0,.2);
     }
 
+    html[data-theme="dark"] .nav-github:hover {
+      background: #f5f5f7;
+      color: #111113;
+      box-shadow: 0 8px 24px rgba(255,255,255,.2);
+    }
+
     .nav-github:hover::before {
       opacity: 1;
     }
@@ -350,8 +523,8 @@
 
       border-radius: 50%;
 
-      background: #111113;
-      color: white;
+      background: var(--text-primary);
+      color: var(--bg-primary);
 
       place-items: center;
 
@@ -408,7 +581,7 @@
 
       margin-bottom: 30px;
 
-      color: #77777d;
+      color: var(--text-secondary);
 
       font-size: 14px;
       letter-spacing: -.01em;
@@ -417,7 +590,7 @@
     }
 
     .eyebrow:hover {
-      color: #111113;
+      color: var(--text-primary);
       transform: translateX(4px);
     }
 
@@ -427,13 +600,19 @@
 
       border-radius: 50%;
 
-      background: #111113;
+      background: var(--text-primary);
 
       box-shadow:
         0 0 0 5px
         rgba(17,17,19,.055);
 
-      transition: transform .3s ease, box-shadow .3s ease;
+      transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+    }
+
+    html[data-theme="dark"] .eyebrow-dot {
+      box-shadow:
+        0 0 0 5px
+        rgba(200,200,220,.1);
     }
 
     .eyebrow:hover .eyebrow-dot {
@@ -441,6 +620,12 @@
       box-shadow:
         0 0 0 8px
         rgba(17,17,19,.1);
+    }
+
+    html[data-theme="dark"] .eyebrow:hover .eyebrow-dot {
+      box-shadow:
+        0 0 0 8px
+        rgba(200,200,220,.2);
     }
 
     .hero h1 {
@@ -476,8 +661,12 @@
       transition: color .4s ease;
     }
 
+    html[data-theme="dark"] .hero-line.soft {
+      color: #888890;
+    }
+
     .hero h1:hover .hero-line.soft {
-      color: #111113;
+      color: var(--text-primary);
     }
 
     .hero-bottom {
@@ -493,7 +682,7 @@
     .hero-description {
       max-width: 510px;
 
-      color: #707076;
+      color: var(--text-tertiary);
 
       font-size: 18px;
       line-height: 1.55;
@@ -504,11 +693,11 @@
     }
 
     .hero-description:hover {
-      color: #111113;
+      color: var(--text-primary);
     }
 
     .hero-description strong {
-      color: #111113;
+      color: var(--text-primary);
       font-weight: 600;
 
       transition: color .3s ease;
@@ -519,7 +708,7 @@
       align-items: center;
       gap: 10px;
 
-      color: #85858b;
+      color: var(--text-muted);
 
       font-size: 13px;
 
@@ -529,7 +718,7 @@
     }
 
     .hero-scroll:hover {
-      color: #111113;
+      color: var(--text-primary);
       transform: translateY(2px);
     }
 
@@ -540,12 +729,21 @@
       background:
         rgba(0,0,0,.18);
 
-      transition: all .3s ease;
+      transition: all .3s ease, background .3s ease;
+    }
+
+    html[data-theme="dark"] .scroll-line {
+      background:
+        rgba(255,255,255,.15);
     }
 
     .hero-scroll:hover .scroll-line {
       width: 52px;
       background: rgba(0,0,0,.35);
+    }
+
+    html[data-theme="dark"] .hero-scroll:hover .scroll-line {
+      background: rgba(255,255,255,.3);
     }
 
 
@@ -609,8 +807,12 @@
       transition: color .3s ease;
     }
 
+    html[data-theme="dark"] .section-label {
+      color: #808088;
+    }
+
     .section-header:hover .section-label {
-      color: #111113;
+      color: var(--text-primary);
     }
 
     .section-number {
@@ -621,8 +823,12 @@
       transition: color .3s ease;
     }
 
+    html[data-theme="dark"] .section-number {
+      color: #808088;
+    }
+
     .section-header:hover .section-number {
-      color: #111113;
+      color: var(--text-primary);
     }
 
 
@@ -635,26 +841,19 @@
 
       border:
         1px solid
-        rgba(255,255,255,.84);
+        var(--glass-border);
 
       background:
-        linear-gradient(
-          135deg,
-          rgba(255,255,255,.72),
-          rgba(255,255,255,.37)
-        );
+        var(--glass-bg);
 
       backdrop-filter:
-        blur(30px)
-        saturate(170%);
+        var(--glass-backdrop-blur);
 
       -webkit-backdrop-filter:
-        blur(30px)
-        saturate(170%);
+        var(--glass-backdrop-blur);
 
       box-shadow:
-        0 30px 90px rgba(0,0,0,.075),
-        inset 0 1px 0 rgba(255,255,255,.95);
+        var(--glass-shadow);
 
       overflow: hidden;
 
@@ -665,6 +864,12 @@
       box-shadow:
         0 40px 120px rgba(0,0,0,.1),
         inset 0 1px 0 rgba(255,255,255,.95);
+    }
+
+    html[data-theme="dark"] .glass:hover {
+      box-shadow:
+        0 40px 120px rgba(0,0,0,.6),
+        inset 0 1px 0 rgba(255,255,255,.1);
     }
 
     .glass::before {
@@ -687,6 +892,17 @@
       opacity: 0;
 
       transition: opacity .3s ease;
+    }
+
+    html[data-theme="dark"] .glass::before {
+      background:
+        radial-gradient(
+          500px circle at
+          var(--mouse-x, 50%)
+          var(--mouse-y, 50%),
+          rgba(255,255,255,.15),
+          transparent 46%
+        );
     }
 
     .glass:hover::before {
@@ -745,6 +961,13 @@
         scale(1.01);
     }
 
+    html[data-theme="dark"] .project:hover,
+    html[data-theme="dark"] .project.active {
+      box-shadow:
+        0 40px 110px rgba(0,0,0,.4),
+        inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
     .project:hover .project-image,
     .project.active .project-image {
       transform: scale(1.045);
@@ -770,6 +993,15 @@
       gap: 45px;
 
       padding: 48px;
+
+      background: var(--bg-secondary);
+      border-radius: 38px;
+
+      transition: background .35s ease, border-color .35s ease;
+    }
+
+    html[data-theme="dark"] .project-inner {
+      background: var(--bg-secondary);
     }
 
     .project-info {
@@ -794,8 +1026,12 @@
       transition: color .3s ease;
     }
 
+    html[data-theme="dark"] .project-index {
+      color: #808088;
+    }
+
     .project:hover .project-index {
-      color: #111113;
+      color: var(--text-primary);
     }
 
     .project-status {
@@ -816,16 +1052,26 @@
       background:
         rgba(255,255,255,.45);
 
-      color: #77777d;
+      color: var(--text-secondary);
 
       font-size: 11px;
 
       transition: all .3s ease;
     }
 
+    html[data-theme="dark"] .project-status {
+      border-color: rgba(255,255,255,.1);
+      background: rgba(255,255,255,.08);
+    }
+
     .project:hover .project-status {
       background: rgba(255,255,255,.7);
       border-color: rgba(0,0,0,.12);
+    }
+
+    html[data-theme="dark"] .project:hover .project-status {
+      background: rgba(255,255,255,.15);
+      border-color: rgba(255,255,255,.2);
     }
 
     .status-dot {
@@ -885,7 +1131,7 @@
     }
 
     .project:hover .project-title {
-      color: #111113;
+      color: var(--text-primary);
     }
 
     .project-description {
@@ -903,8 +1149,12 @@
       transition: color .3s ease;
     }
 
+    html[data-theme="dark"] .project-description {
+      color: #888890;
+    }
+
     .project:hover .project-description {
-      color: #111113;
+      color: var(--text-primary);
     }
 
     .project-meta {
@@ -936,12 +1186,24 @@
       transition: all .3s ease;
     }
 
+    html[data-theme="dark"] .tag {
+      border-color: rgba(255,255,255,.1);
+      background: rgba(255,255,255,.08);
+      color: #a0a0a5;
+    }
+
     .project:hover .tag {
       background: rgba(255,255,255,.65);
       border-color: rgba(0,0,0,.12);
-      color: #111113;
+      color: var(--text-primary);
 
       transform: translateY(-2px);
+    }
+
+    html[data-theme="dark"] .project:hover .tag {
+      background: rgba(255,255,255,.15);
+      border-color: rgba(255,255,255,.2);
+      color: var(--text-primary);
     }
 
     .project-link {
@@ -968,12 +1230,12 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: #111113;
+      background: var(--text-primary);
       transition: width .3s cubic-bezier(.2,.8,.2,1);
     }
 
     .project:hover .project-link {
-      color: #111113;
+      color: var(--text-primary);
     }
 
     .project:hover .project-link::after {
@@ -998,382 +1260,65 @@
 
       transition:
         transform .3s cubic-bezier(.2,.8,.2,1),
-        background .3s ease,
-        box-shadow .3s ease;
+        box-shadow .3s ease,
+        border-color .3s ease,
+        background .3s ease;
+    }
 
+    html[data-theme="dark"] .project-arrow {
+      border-color: rgba(255,255,255,.1);
+      background: rgba(255,255,255,.08);
+    }
+
+    .project-arrow::after {
+      content: "→";
+      font-size: 16px;
       font-weight: 600;
-      font-size: 18px;
 
-      color: #111113;
+      transition: transform .3s cubic-bezier(.2,.8,.2,1);
     }
 
-    .project:hover .project-arrow {
-      background: #111113;
-      color: white;
-      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    .project-arrow:hover::after {
+      transform: translate(3px, -3px);
     }
 
-    /* Hover Block - Shows on hover only */
-    .project-hover-info {
-      position: absolute;
-      top: 48px;
-      right: 48px;
-      z-index: 10;
-
-      padding: 12px 16px;
-      border-radius: 12px;
-      background: rgba(17,17,19,.92);
-      color: white;
-      font-size: 12px;
-      font-weight: 500;
-
-      opacity: 0;
-      transform: translateY(-8px) scale(.9);
-      pointer-events: none;
-
-      transition: all .3s cubic-bezier(.2,.8,.2,1);
-
-      backdrop-filter: blur(10px);
-    }
-
-    .project:hover .project-hover-info {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
-
-    /* Hover Block - Alternative style for visual area */
-    .project-visual-hover {
-      position: absolute;
-      top: 48px;
-      left: 48px;
-      z-index: 5;
-
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.8);
-      color: #111113;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-
-      opacity: 0;
-      transform: translateX(-8px) scale(.85);
-      pointer-events: none;
-
-      transition: all .3s cubic-bezier(.2,.8,.2,1) .1s;
-
-      backdrop-filter: blur(10px);
-    }
-
-    .project:hover .project-visual-hover {
-      opacity: 1;
-      transform: translateX(0) scale(1);
-    }
-
-
-    /* =========================================================
-       PROJECT VISUAL
-    ========================================================= */
-
-    .project-visual {
-      position: relative;
-
-      min-height: 560px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border:
-        1px solid
-        rgba(255,255,255,.76);
-
-      border-radius: 31px;
-
-      background:
-        radial-gradient(
-          circle at 25% 18%,
-          rgba(255,255,255,.95),
-          transparent 38%
-        ),
-        linear-gradient(
-          145deg,
-          rgba(243,245,251,.96),
-          rgba(225,228,239,.62)
-        );
-
-      overflow: hidden;
-
-      transition: all .4s ease;
-    }
-
-    .project:hover .project-visual {
-      border-color: rgba(255,255,255,.9);
-      box-shadow: inset 0 0 40px rgba(255,255,255,.3);
-    }
-
-    .project-image {
-      position: relative;
-      z-index: 3;
-
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-
-      transform: scale(1);
-
-      transition:
-        transform .7s cubic-bezier(.2,.8,.2,1);
-    }
-
-    .visual-glow {
-      position: absolute;
-
-      width: 300px;
-      height: 300px;
-
-      border-radius: 50%;
-
-      filter: blur(75px);
-
-      opacity: .55;
-
-      transition: opacity .4s ease;
-    }
-
-    .project:hover .visual-glow {
-      opacity: .8;
-    }
-
-    .siu-glow {
-      top: 4%;
-      right: 3%;
-
-      background:
-        rgba(180,196,255,.7);
-    }
-
-    .tracker-glow {
-      bottom: 3%;
-      left: 2%;
-
-      background:
-        rgba(198,187,255,.65);
-    }
-
-
-    /* =========================================================
-       SIU PLACEHOLDER
-    ========================================================= */
-
-    .placeholder-device {
-      position: relative;
-      z-index: 3;
-
-      width: 70%;
-      max-width: 455px;
-
-      border:
-        7px solid
-        rgba(20,20,23,.92);
-
-      border-radius: 35px;
-
-      background:
-        rgba(250,250,252,.84);
-
-      box-shadow:
-        0 40px 80px rgba(0,0,0,.17),
-        inset 0 0 0 1px
-        rgba(255,255,255,.35);
-
-      overflow: hidden;
-
-      transition:
-        transform .6s cubic-bezier(.2,.8,.2,1),
-        box-shadow .6s ease;
-    }
-
-    .project:hover .placeholder-device,
-    .project.active .placeholder-device {
-      transform:
-        translateY(-8px)
-        scale(1.035);
-
-      box-shadow:
-        0 50px 100px rgba(0,0,0,.2),
-        inset 0 0 0 1px
-        rgba(255,255,255,.35);
-    }
-
-    .device-top {
-      height: 25px;
-
-      background:
-        rgba(20,20,23,.95);
-    }
-
-    .placeholder-content {
-      min-height: 350px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      gap: 16px;
-
-      padding:
-        30px
-        24px;
-    }
-
-    .placeholder-bubble {
-      width: 72%;
-
-      padding:
-        13px
-        16px;
-
-      border-radius: 18px;
-
-      background:
-        rgba(225,228,235,.82);
-
-      color: #66666c;
-
-      font-size: 12px;
-
-      line-height: 1.45;
-
-      transition: all .3s ease;
-
-      animation: fade-in-slide .6s ease forwards;
-    }
-
-    .placeholder-bubble.right {
-      align-self: flex-end;
-
-      background:
-        rgba(30,30,34,.92);
-
-      color: white;
-
-      animation: fade-in-slide-right .6s ease forwards;
-    }
-
-    @keyframes fade-in-slide {
-      from {
-        opacity: 0;
-        transform: translateX(-8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes fade-in-slide-right {
-      from {
-        opacity: 0;
-        transform: translateX(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .project:hover .placeholder-bubble {
-      background: rgba(225,228,235,.95);
-      transform: translateY(-2px);
-    }
-
-    .project:hover .placeholder-bubble.right {
-      background: rgba(20,20,25,.95);
-      transform: translateY(-2px);
-    }
-
-
-    /* =========================================================
-       TRACKER PLACEHOLDER
-    ========================================================= */
-
-    .tracker-window {
-      position: relative;
-      z-index: 3;
-
-      width: 78%;
-      max-width: 530px;
-
-      padding: 25px;
-
-      border:
-        1px solid
-        rgba(255,255,255,.86);
-
-      border-radius: 25px;
-
-      background:
-        rgba(248,248,250,.78);
-
-      box-shadow:
-        0 40px 80px rgba(0,0,0,.13),
-        inset 0 1px 0
-        rgba(255,255,255,.95);
-
-      backdrop-filter:
-        blur(20px);
-
-      -webkit-backdrop-filter:
-        blur(20px);
-
-      transition:
-        transform .6s cubic-bezier(.2,.8,.2,1),
-        box-shadow .6s ease,
-        border-color .6s ease;
-    }
-
-    .project:hover .tracker-window {
-      transform:
-        translateY(-8px)
-        scale(1.035);
-
-      border-color: rgba(255,255,255,.95);
-
-      box-shadow:
-        0 50px 100px rgba(0,0,0,.15),
-        inset 0 1px 0
-        rgba(255,255,255,.98);
-    }
 
     /* =========================================================
        RESPONSIVE
     ========================================================= */
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       .project-inner {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 32px;
       }
 
       .project-info {
         min-height: auto;
       }
+    }
 
-      .section-header {
-        flex-direction: column;
-        gap: 12px;
+    @media (max-width: 768px) {
+      .nav-wrap {
+        width: calc(100% - 16px);
       }
 
-      .nav-links {
-        display: none;
+      .nav {
+        padding: 8px 16px;
+      }
+
+      .nav-github {
+        margin-left: 0;
+        padding: 10px 14px;
+        font-size: 12px;
       }
 
       .menu-button {
         display: grid;
+      }
+
+      .hero {
+        padding: 140px 0 80px;
       }
 
       .hero-bottom {
@@ -1381,91 +1326,48 @@
         gap: 30px;
       }
 
-      .project-hover-info,
-      .project-visual-hover {
-        display: none;
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .project-inner {
+        padding: 32px;
+      }
+
+      .project-title {
+        margin-top: 40px;
       }
     }
+
   </style>
-
-  <script>
-    // Track mouse position for glass effect
-    document.addEventListener('mousemove', (e) => {
-      const elements = document.querySelectorAll('.glass');
-      elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        el.style.setProperty('--mouse-x', x + 'px');
-        el.style.setProperty('--mouse-y', y + 'px');
-      });
-    });
-
-    // Scroll progress tracking
-    function updateScrollProgress() {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrolled = (scrollTop / docHeight) * 100;
-      const progressFill = document.querySelector('.scroll-progress-fill');
-      if (progressFill) {
-        progressFill.style.height = scrolled + '%';
-      }
-    }
-
-    window.addEventListener('scroll', updateScrollProgress);
-
-    // Smooth scroll for nav links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href !== '#') {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
-      });
-    });
-
-    // Nav scroll effect
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('.nav');
-      if (nav) {
-        if (window.scrollY > 50) {
-          nav.classList.add('scrolled');
-        } else {
-          nav.classList.remove('scrolled');
-        }
-      }
-    });
-
-    // Reveal animation on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.reveal').forEach(el => {
-      observer.observe(el);
-    });
-  </script>
 </head>
+
 <body>
   <div class="background">
     <div class="orb one"></div>
     <div class="orb two"></div>
     <div class="orb three"></div>
   </div>
+
+  <!-- Dark Mode Toggle Button -->
+  <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+    <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
 
   <div class="scroll-progress">
     <div class="scroll-progress-fill"></div>
@@ -1474,56 +1376,54 @@
   <div class="nav-wrap">
     <nav class="nav">
       <div class="brand">Luke Labs</div>
+
       <div class="nav-links">
         <a href="#work" class="nav-link">Work</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#contact" class="nav-link">Contact</a>
+        <a href="https://github.com/HubbyLight" class="nav-github">GitHub</a>
       </div>
-      <a href="https://github.com/HubbyLight" class="nav-github">GitHub</a>
-      <button class="menu-button">☰</button>
+
+      <button class="menu-button" aria-label="Menu">☰</button>
     </nav>
   </div>
 
   <div class="page">
-    <section class="hero">
-      <div class="eyebrow reveal">
-        <span class="eyebrow-dot"></span>
-        <span>Software Studio</span>
+    <section class="hero" id="hero">
+      <div class="eyebrow">
+        <div class="eyebrow-dot"></div>
+        <span>Welcome to Luke Labs</span>
       </div>
 
-      <h1 class="reveal">
-        <span class="hero-line">Small software for</span>
-        <span class="hero-line soft">real problems.</span>
+      <h1>
+        <span class="hero-line">Small software.</span>
+        <span class="hero-line soft">Real problems.</span>
       </h1>
 
       <div class="hero-bottom">
-        <p class="hero-description reveal">
-          I build <strong>focused tools</strong> and <strong>elegant interfaces</strong>
-          that solve actual problems. Independent, thoughtful, and details matter.
+        <p class="hero-description">
+          We build <strong>independent software solutions</strong> that tackle real-world challenges with elegance and precision. Every project is crafted with care.
         </p>
 
-        <div class="hero-scroll reveal">
+        <div class="hero-scroll">
+          <div class="scroll-line"></div>
           <span>Scroll to explore</span>
-          <span class="scroll-line"></span>
         </div>
       </div>
     </section>
 
-    <section id="work" class="work-section">
-      <div class="section-header reveal">
+    <section class="work-section" id="work">
+      <div class="section-header">
         <h2 class="section-label">Featured Work</h2>
-        <span class="section-number">02</span>
+        <span class="section-number">01</span>
       </div>
 
       <div class="projects">
-        <!-- Project 1: Siu -->
-        <div class="project glass reveal">
-          <div class="project-hover-info">Interactive AI companion</div>
-
+        <article class="project glass">
           <div class="project-inner">
             <div class="project-info">
               <div class="project-top">
-                <span class="project-index">01</span>
+                <span class="project-index">Project 01</span>
                 <div class="project-status">
                   <div class="status-dot"></div>
                   <span>Active</span>
@@ -1531,48 +1431,38 @@
               </div>
 
               <div>
-                <h3 class="project-title">Siu</h3>
+                <h3 class="project-title">Design System</h3>
                 <p class="project-description">
-                  An <strong>intelligent AI companion</strong> designed to help you think better.
-                  Real conversations, genuine insights.
+                  A comprehensive design system built for scalability and consistency across all digital products.
                 </p>
 
                 <div class="project-meta">
-                  <span class="tag">AI</span>
-                  <span class="tag">Companion</span>
+                  <span class="tag">Design</span>
+                  <span class="tag">System</span>
                   <span class="tag">UI/UX</span>
                 </div>
-
-                <a href="#" class="project-link">
-                  <span>Explore project</span>
-                  <div class="project-arrow">→</div>
-                </a>
               </div>
+
+              <a href="#" class="project-link">
+                <span>Learn more</span>
+                <div class="project-arrow"></div>
+              </a>
             </div>
 
-            <div class="project-visual">
-              <span class="project-visual-hover">Preview</span>
-              <div class="visual-glow siu-glow"></div>
-              <div class="placeholder-device">
-                <div class="device-top"></div>
-                <div class="placeholder-content">
-                  <div class="placeholder-bubble">Hey, what's on your mind today?</div>
-                  <div class="placeholder-bubble right">I'm thinking about productivity.</div>
-                  <div class="placeholder-bubble">Let's explore that together...</div>
-                </div>
+            <div class="project-image">
+              <!-- Placeholder for project image -->
+              <div style="width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 24px; display: grid; place-items: center; color: white; font-weight: 600; font-size: 18px;">
+                Project Image
               </div>
             </div>
           </div>
-        </div>
+        </article>
 
-        <!-- Project 2: Tracker -->
-        <div class="project glass reveal">
-          <div class="project-hover-info">Task management system</div>
-
+        <article class="project glass">
           <div class="project-inner">
             <div class="project-info">
               <div class="project-top">
-                <span class="project-index">02</span>
+                <span class="project-index">Project 02</span>
                 <div class="project-status">
                   <div class="status-dot"></div>
                   <span>Active</span>
@@ -1580,50 +1470,224 @@
               </div>
 
               <div>
-                <h3 class="project-title">Tracker</h3>
+                <h3 class="project-title">Web Application</h3>
                 <p class="project-description">
-                  A <strong>minimal task management</strong> system built for clarity.
-                  Focus on what matters without distractions.
+                  A full-stack web application optimized for performance and user experience with modern technologies.
                 </p>
 
                 <div class="project-meta">
-                  <span class="tag">Productivity</span>
-                  <span class="tag">Design</span>
-                  <span class="tag">Full Stack</span>
+                  <span class="tag">Web</span>
+                  <span class="tag">Frontend</span>
+                  <span class="tag">Backend</span>
                 </div>
-
-                <a href="#" class="project-link">
-                  <span>Explore project</span>
-                  <div class="project-arrow">→</div>
-                </a>
               </div>
+
+              <a href="#" class="project-link">
+                <span>Learn more</span>
+                <div class="project-arrow"></div>
+              </a>
             </div>
 
-            <div class="project-visual">
-              <span class="project-visual-hover">Preview</span>
-              <div class="visual-glow tracker-glow"></div>
-              <div class="tracker-window">
-                <div style="font-weight: 600; font-size: 13px; margin-bottom: 16px;">Tasks Today</div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                  <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="checkbox" checked style="cursor: pointer;">
-                    <span style="color: #999; font-size: 13px;">Finish project proposal</span>
-                  </div>
-                  <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="checkbox" style="cursor: pointer;">
-                    <span style="color: #666; font-size: 13px;">Review feedback</span>
-                  </div>
-                  <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="checkbox" style="cursor: pointer;">
-                    <span style="color: #666; font-size: 13px;">Update documentation</span>
-                  </div>
-                </div>
+            <div class="project-image">
+              <div style="width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 24px; display: grid; place-items: center; color: white; font-weight: 600; font-size: 18px;">
+                Project Image
               </div>
             </div>
           </div>
-        </div>
+        </article>
+
+        <article class="project glass">
+          <div class="project-inner">
+            <div class="project-info">
+              <div class="project-top">
+                <span class="project-index">Project 03</span>
+                <div class="project-status">
+                  <div class="status-dot"></div>
+                  <span>Active</span>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="project-title">Mobile Platform</h3>
+                <p class="project-description">
+                  Cross-platform mobile application built for iOS and Android with seamless user experience.
+                </p>
+
+                <div class="project-meta">
+                  <span class="tag">Mobile</span>
+                  <span class="tag">iOS</span>
+                  <span class="tag">Android</span>
+                </div>
+              </div>
+
+              <a href="#" class="project-link">
+                <span>Learn more</span>
+                <div class="project-arrow"></div>
+              </a>
+            </div>
+
+            <div class="project-image">
+              <div style="width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 24px; display: grid; place-items: center; color: white; font-weight: 600; font-size: 18px;">
+                Project Image
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   </div>
+
+  <script>
+    // =========================================================
+    // DARK MODE THEME TOGGLE
+    // =========================================================
+
+    class ThemeManager {
+      constructor() {
+        this.html = document.documentElement;
+        this.toggleBtn = document.querySelector('.theme-toggle');
+        this.storageKey = 'luke-labs-theme';
+        this.prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+        this.init();
+      }
+
+      init() {
+        // Get stored theme or use system preference
+        const storedTheme = this.getStoredTheme();
+        const prefersSystemDark = this.prefersDark.matches;
+        const initialTheme = storedTheme || (prefersSystemDark ? 'dark' : 'light');
+
+        // Set initial theme
+        this.setTheme(initialTheme);
+
+        // Add event listeners
+        this.toggleBtn?.addEventListener('click', () => this.toggle());
+        this.prefersDark.addEventListener('change', (e) => {
+          if (!this.getStoredTheme()) {
+            this.setTheme(e.matches ? 'dark' : 'light');
+          }
+        });
+      }
+
+      getStoredTheme() {
+        return localStorage.getItem(this.storageKey);
+      }
+
+      getCurrentTheme() {
+        return this.html.getAttribute('data-theme') || 'light';
+      }
+
+      setTheme(theme) {
+        const validTheme = theme === 'dark' ? 'dark' : 'light';
+        this.html.setAttribute('data-theme', validTheme);
+        localStorage.setItem(this.storageKey, validTheme);
+
+        // Add pulse animation on toggle
+        if (this.toggleBtn) {
+          this.toggleBtn.style.animation = 'none';
+          setTimeout(() => {
+            this.toggleBtn.style.animation = '';
+          }, 10);
+        }
+      }
+
+      toggle() {
+        const currentTheme = this.getCurrentTheme();
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
+      }
+    }
+
+    // Initialize theme manager
+    const themeManager = new ThemeManager();
+
+    // =========================================================
+    // SCROLL PROGRESS
+    // =========================================================
+
+    const scrollProgress = document.querySelector('.scroll-progress-fill');
+
+    function updateScrollProgress() {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = window.scrollY;
+      const progress = (scrolled / totalHeight) * 100;
+      if (scrollProgress) scrollProgress.style.height = progress + '%';
+    }
+
+    window.addEventListener('scroll', updateScrollProgress);
+
+    // =========================================================
+    // NAV SCROLL DETECTION
+    // =========================================================
+
+    const nav = document.querySelector('.nav');
+
+    function updateNavScroll() {
+      if (window.scrollY > 50) {
+        nav?.classList.add('scrolled');
+      } else {
+        nav?.classList.remove('scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', updateNavScroll);
+
+    // =========================================================
+    // SCROLL REVEAL ANIMATION
+    // =========================================================
+
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach((element) => {
+      revealObserver.observe(element);
+    });
+
+    // =========================================================
+    // GLASS MOUSE FOLLOW
+    // =========================================================
+
+    const glassElements = document.querySelectorAll('.glass');
+
+    glassElements.forEach((element) => {
+      element.addEventListener('mousemove', (e) => {
+        const rect = element.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        element.style.setProperty('--mouse-x', x + 'px');
+        element.style.setProperty('--mouse-y', y + 'px');
+      });
+
+      element.addEventListener('mouseleave', () => {
+        element.style.setProperty('--mouse-x', '50%');
+        element.style.setProperty('--mouse-y', '50%');
+      });
+    });
+
+    // =========================================================
+    // SMOOTH SCROLL LINKS
+    // =========================================================
+
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && document.querySelector(href)) {
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>
