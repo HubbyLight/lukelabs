@@ -1623,6 +1623,78 @@
   }
 }
 
+
+/* Clean Coming Soon card */
+.coming-soon-card {
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.coming-soon-card:hover,
+.coming-soon-card.active {
+  transform: none !important;
+}
+
+.coming-soon-content {
+  width: 100%;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.coming-soon-content .project-kicker {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.coming-soon-content h3 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -.045em;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .coming-soon-card {
+    min-height: 260px;
+  }
+}
+
+
+/* Scroll highlight — robust light/dark mode implementation */
+.statement .statement-text .highlight-word {
+  position: relative;
+  display: inline;
+  color: rgba(0,0,0,.18);
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  transition: none !important;
+}
+
+.statement .statement-text .highlight-word::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  width: calc(var(--highlight-progress, 0) * 100%);
+  overflow: hidden;
+  white-space: nowrap;
+  color: #000;
+  pointer-events: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .statement .statement-text .highlight-word {
+    color: rgba(255,255,255,.22);
+  }
+
+  .statement .statement-text .highlight-word::after {
+    color: #fff;
+  }
+}
+
 </style>
 </head>
 
@@ -1832,10 +1904,10 @@
         </div>
 
         <p class="statement-copy" id="highlightText">
-          <span class="highlight-word">Good software should feel obvious.</span>
-          <span class="highlight-word">It should remove friction,</span>
-          <span class="highlight-word">solve something real,</span>
-          <span class="highlight-word">and quietly earn a place in your life.</span>
+          <span class="highlight-word" data-text="Good software should feel obvious.">Good software should feel obvious.</span>
+          <span class="highlight-word" data-text="It should remove friction,">It should remove friction,</span>
+          <span class="highlight-word" data-text="solve something real,">solve something real,</span>
+          <span class="highlight-word" data-text="and quietly earn a place in your life.">and quietly earn a place in your life.</span>
         </p>
       </div>
     </section>
@@ -1887,7 +1959,7 @@
         <p>
           For projects, experiments, collaborations, or just a good software idea.
         </p>
-        <a class="contact-button" href="mailto:hello@lukelabs.dev">
+        <a class="contact-button" href="mailto:lukelabsco@gmail.com">
           <span>Get in touch</span>
           <span>↗</span>
         </a>
@@ -2119,39 +2191,47 @@
     });
   </script>
 
+
+
+
 <script>
-/* Luke Labs — scroll-driven highlight for both light and dark modes */
+/* Luke Labs — reliable scroll highlight */
 (() => {
-  const words = [...document.querySelectorAll('.highlight-word')];
+  const words = [...document.querySelectorAll('.statement .highlight-word')];
   if (!words.length) return;
 
-  const updateHighlight = () => {
-    const viewport = window.innerHeight;
+  const update = () => {
+    const h = window.innerHeight;
+
     words.forEach((word) => {
       const rect = word.getBoundingClientRect();
-      // Progress as the word moves through the middle band of the viewport.
-      const start = viewport * 0.82;
-      const end = viewport * 0.38;
-      const progress = Math.max(0, Math.min(1, (start - rect.top) / (start - end)));
-      word.style.setProperty('--highlight-progress', progress.toFixed(3));
-      word.classList.toggle('active', progress > 0.02);
-      word.style.backgroundSize = `${progress * 100}% 100%`;
+
+      // Starts highlighting when the word enters the lower-middle area,
+      // completes as it reaches the upper-middle area.
+      const start = h * 0.82;
+      const end = h * 0.38;
+      const progress = Math.max(
+        0,
+        Math.min(1, (start - rect.top) / (start - end))
+      );
+
+      word.style.setProperty('--highlight-progress', progress);
     });
   };
 
-  let ticking = false;
+  let raf = 0;
   const requestUpdate = () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      updateHighlight();
-      ticking = false;
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      update();
     });
   };
 
   window.addEventListener('scroll', requestUpdate, { passive: true });
   window.addEventListener('resize', requestUpdate);
-  requestUpdate();
+  window.addEventListener('load', update);
+  update();
 })();
 </script>
 
