@@ -2,30 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>Luke Labs — Small software. Real problems.</title>
+
   <meta
     name="description"
-    content="Luke Labs is an independent software studio building useful products, experiments, and tools."
+    content="Luke Labs is an independent software studio by @HubbyLight, building AI products, developer tools, and experiments."
   />
-  <meta name="theme-color" content="#f4f4f6" />
+
+  <meta name="theme-color" content="#f5f5f7" />
 
   <style>
-    :root {
-      --bg: #f4f4f6;
-      --text: #111113;
-      --muted: #77777f;
-      --glass: rgba(255, 255, 255, 0.48);
-      --glass-strong: rgba(255, 255, 255, 0.68);
-      --border: rgba(255, 255, 255, 0.72);
-      --shadow:
-        0 24px 80px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    }
+    /* =========================================================
+       RESET
+    ========================================================= */
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     html {
@@ -33,37 +32,20 @@
     }
 
     body {
-      margin: 0;
-      background:
-        radial-gradient(
-          circle at 15% 10%,
-          rgba(255, 255, 255, 0.95),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 85% 20%,
-          rgba(215, 222, 255, 0.65),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 50% 75%,
-          rgba(230, 220, 255, 0.5),
-          transparent 35%
-        ),
-        var(--bg);
-      background-attachment: fixed;
-      color: var(--text);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
         "SF Pro Display",
         "SF Pro Text",
-        Inter,
-        Helvetica,
+        "Helvetica Neue",
         Arial,
         sans-serif;
-      min-height: 100vh;
+
+      background: #f5f5f7;
+      color: #111113;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a {
@@ -71,512 +53,947 @@
       text-decoration: none;
     }
 
-    ::selection {
-      background: rgba(0, 0, 0, 0.12);
+    button {
+      font: inherit;
     }
 
-    /* ------------------------------
-       Ambient background
-    ------------------------------ */
+    ::selection {
+      background: rgba(20, 20, 25, 0.12);
+    }
+
+
+    /* =========================================================
+       BACKGROUND
+    ========================================================= */
+
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+      overflow: hidden;
+      pointer-events: none;
+      background:
+        radial-gradient(
+          circle at 10% 5%,
+          rgba(255, 255, 255, 0.95),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 95% 12%,
+          rgba(215, 225, 255, 0.55),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 100%,
+          rgba(226, 218, 255, 0.52),
+          transparent 34%
+        ),
+        #f5f5f7;
+    }
 
     .orb {
-      position: fixed;
-      border-radius: 999px;
-      pointer-events: none;
-      filter: blur(70px);
-      opacity: 0.45;
-      z-index: -1;
-      animation: drift 16s ease-in-out infinite alternate;
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.42;
+      will-change: transform;
     }
 
     .orb.one {
-      width: 280px;
-      height: 280px;
-      top: 12%;
-      left: -100px;
-      background: #ffffff;
+      top: -220px;
+      left: -160px;
+      background: rgba(255, 255, 255, 0.95);
     }
 
     .orb.two {
-      width: 360px;
-      height: 360px;
-      right: -150px;
-      top: 34%;
-      background: #dfe5ff;
-      animation-delay: -5s;
+      top: 18%;
+      right: -240px;
+      background: rgba(188, 205, 255, 0.55);
     }
 
     .orb.three {
-      width: 300px;
-      height: 300px;
+      bottom: -250px;
       left: 30%;
-      bottom: -160px;
-      background: #eadfff;
-      animation-delay: -9s;
+      background: rgba(220, 207, 255, 0.5);
     }
 
-    @keyframes drift {
-      from {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-      to {
-        transform: translate3d(30px, -25px, 0) scale(1.08);
-      }
-    }
 
-    /* ------------------------------
-       Glass navigation
-    ------------------------------ */
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
 
     .nav-wrap {
       position: fixed;
       top: 20px;
       left: 50%;
-      transform: translateX(-50%);
-      width: min(920px, calc(100% - 32px));
       z-index: 100;
+      width: min(990px, calc(100% - 32px));
+      transform: translateX(-50%);
     }
 
     .nav {
-      height: 62px;
-      padding: 0 10px 0 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
 
-      background: rgba(255, 255, 255, 0.42);
-      backdrop-filter: blur(26px) saturate(180%);
-      -webkit-backdrop-filter: blur(26px) saturate(180%);
+      min-height: 64px;
+      padding: 8px 12px 8px 24px;
 
-      border: 1px solid rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(255, 255, 255, 0.8);
       border-radius: 999px;
 
+      background: rgba(255, 255, 255, 0.58);
+
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+
       box-shadow:
-        0 16px 50px rgba(0, 0, 0, 0.08),
+        0 20px 50px rgba(0, 0, 0, 0.07),
         inset 0 1px 0 rgba(255, 255, 255, 0.95);
 
       transition:
         background 0.3s ease,
+        box-shadow 0.3s ease,
         transform 0.3s ease;
     }
 
     .nav.scrolled {
-      background: rgba(255, 255, 255, 0.66);
+      background: rgba(255, 255, 255, 0.74);
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
     }
 
     .brand {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 650;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
 
-    .nav-links a {
-      padding: 9px 13px;
-      color: rgba(17, 17, 19, 0.66);
-      font-size: 13px;
-      font-weight: 500;
+    .nav-link {
+      padding: 10px 13px;
       border-radius: 999px;
+      color: #707075;
+      font-size: 14px;
       transition:
         background 0.2s ease,
         color 0.2s ease;
     }
 
-    .nav-links a:hover {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.55);
+    .nav-link:hover {
+      color: #111113;
+      background: rgba(0, 0, 0, 0.045);
     }
 
     .nav-github {
-      display: flex !important;
-      align-items: center;
-      gap: 7px;
-      color: white !important;
-      background: #111113 !important;
-      padding: 10px 16px !important;
+      margin-left: 7px;
+      padding: 11px 17px;
+
+      border-radius: 999px;
+      background: #111113;
+      color: white;
+
+      font-size: 14px;
+      font-weight: 550;
+
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease;
     }
 
     .nav-github:hover {
-      background: #29292d !important;
+      transform: translateY(-1px);
+      background: #29292d;
     }
 
-    /* ------------------------------
-       Main
-    ------------------------------ */
 
-    main {
+    /* =========================================================
+       GENERAL LAYOUT
+    ========================================================= */
+
+    .page {
       width: min(1180px, calc(100% - 40px));
       margin: 0 auto;
     }
 
+    section {
+      scroll-margin-top: 110px;
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
     .hero {
-      min-height: 92vh;
-      padding-top: 190px;
-      padding-bottom: 110px;
+      min-height: 100vh;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
+
+      padding:
+        150px 0
+        90px;
     }
 
     .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
       width: fit-content;
-      margin-bottom: 28px;
-      padding: 8px 13px;
+      margin-bottom: 30px;
 
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 999px;
+      color: #77777c;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+    }
 
-      background: rgba(255, 255, 255, 0.42);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
-      color: rgba(17, 17, 19, 0.58);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #111113;
+      box-shadow: 0 0 0 5px rgba(17, 17, 19, 0.06);
     }
 
     .hero h1 {
-      max-width: 980px;
-      margin: 0;
+      max-width: 1100px;
 
-      font-size: clamp(64px, 10vw, 142px);
-      line-height: 0.88;
+      font-size: clamp(
+        68px,
+        10.5vw,
+        142px
+      );
+
+      line-height: 0.9;
       letter-spacing: -0.075em;
-      font-weight: 700;
+      font-weight: 650;
     }
 
     .hero h1 span {
       display: block;
-      color: rgba(17, 17, 19, 0.42);
+    }
+
+    .hero h1 .soft {
+      color: #85858b;
     }
 
     .hero-bottom {
-      margin-top: 58px;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
+
       gap: 40px;
+      margin-top: 58px;
     }
 
     .hero-description {
-      max-width: 490px;
-      color: var(--muted);
+      max-width: 470px;
+
+      color: #6f6f75;
       font-size: 18px;
       line-height: 1.55;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
     }
 
-    .scroll-indicator {
-      color: rgba(17, 17, 19, 0.42);
-      font-size: 12px;
+    .hero-scroll {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      color: #7b7b81;
+      font-size: 13px;
       white-space: nowrap;
     }
 
-    /* ------------------------------
-       Section
-    ------------------------------ */
-
-    section {
-      padding: 120px 0;
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.18);
     }
 
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 30px;
-      margin-bottom: 42px;
-    }
 
-    .section-title {
-      margin: 0;
-      font-size: clamp(34px, 5vw, 60px);
-      line-height: 1;
-      letter-spacing: -0.055em;
-    }
+    /* =========================================================
+       GLASS CARDS
+    ========================================================= */
 
-    .section-number {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    /* ------------------------------
-       Project cards
-    ------------------------------ */
-
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .project {
-      --mx: 50%;
-      --my: 50%;
-
+    .glass {
       position: relative;
-      min-height: 510px;
-      padding: 34px;
+
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.72),
+          rgba(255, 255, 255, 0.38)
+        );
+
+      backdrop-filter: blur(30px) saturate(170%);
+      -webkit-backdrop-filter: blur(30px) saturate(170%);
+
+      box-shadow:
+        0 28px 80px rgba(0, 0, 0, 0.075),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
 
       overflow: hidden;
-      border-radius: 38px;
-
-      background: var(--glass);
-      backdrop-filter: blur(30px) saturate(160%);
-      -webkit-backdrop-filter: blur(30px) saturate(160%);
-
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-
-      transition:
-        transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-        box-shadow 0.5s ease;
     }
 
-    .project::before {
+    .glass::before {
       content: "";
       position: absolute;
       inset: 0;
 
       background:
         radial-gradient(
-          circle at var(--mx) var(--my),
-          rgba(255, 255, 255, 0.88),
-          transparent 28%
+          500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+          rgba(255, 255, 255, 0.4),
+          transparent 45%
         );
 
       pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.35s ease;
+      opacity: 0.8;
+    }
+
+
+    /* =========================================================
+       SECTION HEADERS
+    ========================================================= */
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      color: #808086;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+
+    .section-number {
+      color: #a0a0a5;
+      font-size: 13px;
+    }
+
+
+    /* =========================================================
+       SELECTED WORK
+    ========================================================= */
+
+    .work-section {
+      padding: 80px 0 150px;
+    }
+
+    .projects {
+      display: grid;
+      gap: 26px;
+    }
+
+    .project {
+      border-radius: 38px;
+      transition:
+        transform 0.45s cubic-bezier(.2,.8,.2,1),
+        box-shadow 0.45s ease;
     }
 
     .project:hover {
-      transform: translateY(-8px);
+      transform: translateY(-5px);
       box-shadow:
-        0 35px 90px rgba(0, 0, 0, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 1);
+        0 35px 100px rgba(0, 0, 0, 0.11),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
     }
 
-    .project:hover::before {
-      opacity: 1;
-    }
-
-    .project-content {
+    .project-inner {
       position: relative;
       z-index: 2;
-      height: 100%;
+
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 45px;
+
+      padding: 48px;
+    }
+
+    .project-info {
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+
+      min-height: 540px;
     }
 
     .project-top {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: flex-start;
     }
 
     .project-index {
-      color: rgba(17, 17, 19, 0.4);
-      font-size: 12px;
-      font-weight: 600;
+      color: #929297;
+      font-size: 13px;
+      letter-spacing: 0.02em;
     }
 
-    .status {
+    .project-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
       padding: 7px 11px;
+
+      border: 1px solid rgba(0, 0, 0, 0.07);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.52);
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      color: rgba(17, 17, 19, 0.58);
+
+      background: rgba(255, 255, 255, 0.45);
+
+      color: #77777d;
       font-size: 11px;
     }
 
-    .project-main {
-      margin-top: auto;
-      margin-bottom: auto;
-      padding: 70px 0;
+    .status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #58a76a;
     }
 
-    .project-icon {
-      width: 62px;
-      height: 62px;
-      margin-bottom: 28px;
+    .project-title {
+      margin-top: 60px;
 
-      display: grid;
-      place-items: center;
-
-      border-radius: 19px;
-
-      background: rgba(255, 255, 255, 0.62);
-      border: 1px solid rgba(255, 255, 255, 0.82);
-      box-shadow:
-        0 12px 30px rgba(0, 0, 0, 0.07),
-        inset 0 1px 0 rgba(255, 255, 255, 1);
-
-      font-size: 25px;
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: 0.94;
+      letter-spacing: -0.065em;
+      font-weight: 620;
     }
 
-    .project h3 {
-      margin: 0 0 14px;
-      font-size: clamp(32px, 4vw, 48px);
-      letter-spacing: -0.055em;
-      line-height: 0.98;
-    }
+    .project-description {
+      max-width: 410px;
+      margin-top: 24px;
 
-    .project p {
-      max-width: 450px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 16px;
+      color: #737379;
+      font-size: 17px;
       line-height: 1.55;
+      letter-spacing: -0.02em;
     }
 
-    .project-bottom {
+    .project-meta {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-top: 32px;
     }
 
-    .tech {
-      color: rgba(17, 17, 19, 0.46);
+    .tag {
+      padding: 8px 12px;
+
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      border-radius: 999px;
+
+      background: rgba(255, 255, 255, 0.4);
+
+      color: #68686e;
       font-size: 12px;
     }
 
     .project-link {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
 
-      padding: 12px 16px;
+      width: fit-content;
+      margin-top: 45px;
 
-      background: rgba(255, 255, 255, 0.58);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 550;
+    }
 
-      font-size: 12px;
-      font-weight: 600;
+    .project-link-arrow {
+      display: grid;
+      place-items: center;
+
+      width: 34px;
+      height: 34px;
+
+      border: 1px solid rgba(0, 0, 0, 0.09);
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.55);
 
       transition:
-        background 0.2s ease,
-        transform 0.2s ease;
+        transform 0.25s ease,
+        background 0.25s ease;
     }
 
-    .project-link:hover {
-      background: white;
-      transform: translateX(2px);
+    .project-link:hover .project-link-arrow {
+      transform: translate(2px, -2px);
+      background: rgba(255, 255, 255, 0.9);
     }
 
-    /* ------------------------------
-       Philosophy
-    ------------------------------ */
+
+    /* =========================================================
+       IMAGE PLACEHOLDER
+    ========================================================= */
+
+    .project-visual {
+      position: relative;
+
+      min-height: 540px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 30px;
+
+      background:
+        radial-gradient(
+          circle at 30% 20%,
+          rgba(255, 255, 255, 0.9),
+          transparent 38%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(242, 244, 250, 0.95),
+          rgba(225, 228, 239, 0.6)
+        );
+
+      overflow: hidden;
+
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 20px 45px rgba(0, 0, 0, 0.045);
+    }
+
+    .visual-glow {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.55;
+    }
+
+    .siu-glow {
+      top: 5%;
+      right: 5%;
+      background: rgba(180, 195, 255, 0.7);
+    }
+
+    .tracker-glow {
+      bottom: 5%;
+      left: 5%;
+      background: rgba(195, 185, 255, 0.65);
+    }
+
+    .placeholder-device {
+      position: relative;
+      z-index: 2;
+
+      width: 72%;
+      max-width: 470px;
+
+      border: 7px solid rgba(20, 20, 23, 0.9);
+      border-radius: 34px;
+
+      background: rgba(250, 250, 252, 0.8);
+
+      box-shadow:
+        0 35px 70px rgba(0, 0, 0, 0.16),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+
+      overflow: hidden;
+    }
+
+    .device-top {
+      height: 24px;
+      background: rgba(20, 20, 23, 0.95);
+    }
+
+    .placeholder-content {
+      min-height: 330px;
+      padding: 30px 24px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .placeholder-bubble {
+      width: 72%;
+      padding: 13px 16px;
+
+      border-radius: 18px;
+
+      background: rgba(225, 228, 235, 0.8);
+
+      color: #66666c;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .placeholder-bubble.right {
+      align-self: flex-end;
+      background: rgba(30, 30, 34, 0.92);
+      color: white;
+    }
+
+    .placeholder-note {
+      position: absolute;
+      z-index: 3;
+      bottom: 25px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      color: rgba(50, 50, 55, 0.45);
+
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    /* Desktop tracker placeholder */
+
+    .tracker-window {
+      position: relative;
+      z-index: 2;
+
+      width: 78%;
+      max-width: 520px;
+
+      padding: 24px;
+
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: 24px;
+
+      background: rgba(248, 248, 250, 0.76);
+
+      box-shadow:
+        0 35px 75px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .window-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      margin-bottom: 22px;
+    }
+
+    .window-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    .window-title {
+      margin-left: auto;
+
+      color: #8b8b90;
+      font-size: 10px;
+    }
+
+    .usage-display {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .usage-ring {
+      position: relative;
+
+      width: 105px;
+      height: 105px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(250, 250, 252, 0.9) 57%,
+          transparent 58%
+        ),
+        conic-gradient(
+          #303035 0 64%,
+          rgba(0, 0, 0, 0.07) 64% 100%
+        );
+    }
+
+    .usage-number {
+      font-size: 24px;
+      font-weight: 650;
+      letter-spacing: -0.05em;
+    }
+
+    .usage-side {
+      flex: 1;
+    }
+
+    .usage-side strong {
+      display: block;
+
+      font-size: 17px;
+      letter-spacing: -0.035em;
+    }
+
+    .usage-side span {
+      display: block;
+
+      margin-top: 6px;
+
+      color: #89898f;
+      font-size: 11px;
+    }
+
+    .usage-bars {
+      display: grid;
+      gap: 9px;
+      margin-top: 25px;
+    }
+
+    .usage-bar {
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.07);
+      overflow: hidden;
+    }
+
+    .usage-bar::after {
+      content: "";
+      display: block;
+
+      width: 57%;
+      height: 100%;
+
+      border-radius: inherit;
+      background: rgba(40, 40, 45, 0.75);
+    }
+
+    .usage-bar:nth-child(2)::after {
+      width: 31%;
+    }
+
+    .usage-bar:nth-child(3)::after {
+      width: 78%;
+    }
+
+
+    /* =========================================================
+       PHILOSOPHY
+    ========================================================= */
 
     .philosophy {
-      max-width: 920px;
-      margin: 0 auto;
-      text-align: center;
+      padding: 30px 0 160px;
     }
 
-    .philosophy p {
-      margin: 0;
-      font-size: clamp(35px, 5.5vw, 72px);
-      line-height: 1.03;
+    .philosophy-card {
+      min-height: 470px;
+      padding: 65px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      border-radius: 38px;
+    }
+
+    .philosophy-small {
+      color: #85858a;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .philosophy-quote {
+      max-width: 920px;
+
+      font-size: clamp(38px, 5.5vw, 74px);
+      line-height: 0.98;
       letter-spacing: -0.065em;
       font-weight: 600;
     }
 
-    .philosophy .dim {
-      color: rgba(17, 17, 19, 0.3);
+    .philosophy-quote span {
+      color: #89898e;
     }
 
-    /* ------------------------------
-       About
-    ------------------------------ */
+    .philosophy-bottom {
+      display: flex;
+      justify-content: flex-end;
 
-    .about-card {
-      display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: 60px;
-
-      padding: 52px;
-      border-radius: 38px;
-
-      background: rgba(255, 255, 255, 0.38);
-      backdrop-filter: blur(30px) saturate(150%);
-      -webkit-backdrop-filter: blur(30px) saturate(150%);
-
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      box-shadow: var(--shadow);
-    }
-
-    .about-label {
-      color: var(--muted);
+      color: #8a8a90;
       font-size: 13px;
     }
 
-    .about-text {
-      margin: 0;
-      font-size: clamp(24px, 3vw, 38px);
-      line-height: 1.2;
-      letter-spacing: -0.045em;
+
+    /* =========================================================
+       ABOUT
+    ========================================================= */
+
+    .about-section {
+      padding: 0 0 150px;
     }
 
-    .about-small {
+    .about-card {
+      padding: 58px;
+      border-radius: 38px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 70px;
+    }
+
+    .about-title {
+      color: #85858a;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .about-main h2 {
+      max-width: 850px;
+
+      font-size: clamp(38px, 5vw, 66px);
+      line-height: 0.98;
+      letter-spacing: -0.065em;
+      font-weight: 600;
+    }
+
+    .about-main h2 strong {
+      font-weight: 650;
+    }
+
+    .about-copy {
+      max-width: 700px;
       margin-top: 30px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.65;
+
+      color: #737379;
+      font-size: 17px;
+      line-height: 1.6;
+      letter-spacing: -0.02em;
     }
 
-    /* ------------------------------
-       Footer
-    ------------------------------ */
+    .about-copy + .about-copy {
+      margin-top: 18px;
+    }
+
+    .about-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+
+      margin-top: 65px;
+    }
+
+    .info-box {
+      min-height: 150px;
+      padding: 22px;
+
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 22px;
+
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .info-label {
+      color: #929297;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .info-value {
+      margin-top: 35px;
+
+      font-size: 17px;
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+      font-weight: 550;
+    }
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
 
     footer {
-      padding: 70px 0 40px;
+      padding: 35px 0 40px;
+
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
     }
 
     .footer-inner {
-      padding-top: 28px;
-      border-top: 1px solid rgba(0, 0, 0, 0.09);
-
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 20px;
+      justify-content: space-between;
+      gap: 30px;
     }
 
     .footer-brand {
-      font-weight: 650;
-      letter-spacing: -0.02em;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
     }
 
     .footer-right {
       display: flex;
-      gap: 20px;
-      color: var(--muted);
+      align-items: center;
+      gap: 25px;
+    }
+
+    .footer-link {
+      color: #85858a;
+      font-size: 13px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: #111113;
+    }
+
+    .copyright {
+      color: #9a9a9f;
       font-size: 12px;
     }
 
-    .footer-right a:hover {
-      color: var(--text);
-    }
 
-    /* ------------------------------
-       Reveal animation
-    ------------------------------ */
+    /* =========================================================
+       REVEAL ANIMATION
+    ========================================================= */
 
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
+      transform: translateY(25px);
+
       transition:
         opacity 0.8s ease,
-        transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        transform 0.8s cubic-bezier(.2,.8,.2,1);
     }
 
     .reveal.visible {
@@ -584,13 +1001,15 @@
       transform: translateY(0);
     }
 
-    /* ------------------------------
-       Responsive
-    ------------------------------ */
 
-    @media (max-width: 800px) {
-      main {
-        width: min(100% - 28px, 1180px);
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .page {
+        width: min(100% - 28px, 720px);
       }
 
       .nav-wrap {
@@ -599,65 +1018,206 @@
       }
 
       .nav {
-        height: 56px;
-        padding-left: 17px;
+        min-height: 58px;
+        padding-left: 18px;
       }
 
-      .nav-links a:not(.nav-github) {
+      .nav-link {
         display: none;
+      }
+
+      .nav-github {
+        margin-left: 0;
       }
 
       .hero {
         min-height: auto;
-        padding-top: 150px;
-        padding-bottom: 80px;
+        padding:
+          170px 0
+          100px;
       }
 
       .hero h1 {
-        font-size: clamp(58px, 17vw, 100px);
+        font-size: clamp(58px, 15vw, 105px);
       }
 
       .hero-bottom {
-        margin-top: 42px;
-        display: block;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero-scroll {
+        display: none;
+      }
+
+      .project-inner {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 30px;
+      }
+
+      .project-info {
+        min-height: auto;
+      }
+
+      .project-title {
+        margin-top: 40px;
+      }
+
+      .project-visual {
+        min-height: 430px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .about-info {
+        grid-template-columns: 1fr;
+      }
+
+      .info-box {
+        min-height: 120px;
+      }
+
+      .info-value {
+        margin-top: 20px;
+      }
+    }
+
+
+    @media (max-width: 600px) {
+
+      .page {
+        width: calc(100% - 22px);
+      }
+
+      .hero {
+        padding-top: 145px;
+        padding-bottom: 80px;
+      }
+
+      .eyebrow {
+        margin-bottom: 24px;
+      }
+
+      .hero h1 {
+        font-size: clamp(56px, 16vw, 82px);
+        letter-spacing: -0.075em;
       }
 
       .hero-description {
         font-size: 16px;
       }
 
-      .scroll-indicator {
-        display: none;
-      }
-
-      section {
-        padding: 80px 0;
-      }
-
-      .projects {
-        grid-template-columns: 1fr;
+      .work-section {
+        padding: 50px 0 100px;
       }
 
       .project {
-        min-height: 470px;
-        padding: 28px;
-        border-radius: 30px;
+        border-radius: 28px;
+      }
+
+      .project-inner {
+        padding: 22px;
+      }
+
+      .project-title {
+        font-size: 50px;
+      }
+
+      .project-description {
+        font-size: 15px;
+      }
+
+      .project-visual {
+        min-height: 340px;
+        border-radius: 23px;
+      }
+
+      .placeholder-device {
+        width: 75%;
+        border-width: 5px;
+        border-radius: 24px;
+      }
+
+      .placeholder-content {
+        min-height: 250px;
+        padding: 22px 17px;
+      }
+
+      .tracker-window {
+        width: 86%;
+        padding: 18px;
+      }
+
+      .usage-ring {
+        width: 82px;
+        height: 82px;
+      }
+
+      .usage-number {
+        font-size: 19px;
+      }
+
+      .usage-display {
+        gap: 15px;
+      }
+
+      .philosophy {
+        padding-bottom: 100px;
+      }
+
+      .philosophy-card {
+        min-height: 390px;
+        padding: 30px;
+        border-radius: 28px;
+      }
+
+      .philosophy-quote {
+        font-size: 40px;
+      }
+
+      .about-section {
+        padding-bottom: 100px;
       }
 
       .about-card {
-        grid-template-columns: 1fr;
-        gap: 28px;
-        padding: 30px;
-        border-radius: 30px;
+        padding: 30px 25px;
+        border-radius: 28px;
+      }
+
+      .about-main h2 {
+        font-size: 42px;
+      }
+
+      .about-copy {
+        font-size: 15px;
+      }
+
+      .about-info {
+        margin-top: 40px;
       }
 
       .footer-inner {
         align-items: flex-start;
         flex-direction: column;
       }
+
+      .footer-right {
+        width: 100%;
+        justify-content: space-between;
+      }
     }
 
+
+    /* =========================================================
+       REDUCED MOTION
+    ========================================================= */
+
     @media (prefers-reduced-motion: reduce) {
+
       html {
         scroll-behavior: auto;
       }
@@ -665,204 +1225,524 @@
       *,
       *::before,
       *::after {
-        animation: none !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
       }
     }
   </style>
 </head>
 
+
 <body>
 
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-  <div class="orb three"></div>
+  <!-- =======================================================
+       BACKGROUND
+  ======================================================== -->
 
-  <!-- Navigation -->
+  <div class="background" aria-hidden="true">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
+
+
+  <!-- =======================================================
+       NAVIGATION
+  ======================================================== -->
+
   <div class="nav-wrap">
-    <nav class="nav" id="nav">
-      <a href="#" class="brand">Luke Labs</a>
+    <nav class="nav">
+
+      <a class="brand" href="#top">
+        Luke Labs
+      </a>
 
       <div class="nav-links">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
+        <a class="nav-link" href="#work">Work</a>
+        <a class="nav-link" href="#about">About</a>
 
         <a
+          class="nav-github"
           href="https://github.com/HubbyLight"
           target="_blank"
           rel="noopener noreferrer"
-          class="nav-github"
         >
-          GitHub
-          <span>↗</span>
+          GitHub ↗
         </a>
       </div>
+
     </nav>
   </div>
 
-  <main>
 
-    <!-- Hero -->
-    <section class="hero">
-      <div class="eyebrow reveal">Independent software studio</div>
+  <main id="top">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero page">
+
+      <div class="eyebrow reveal">
+        <span class="eyebrow-dot"></span>
+        Independent software studio
+      </div>
 
       <h1 class="reveal">
-        Small software.
-        <span>Real problems.</span>
+        <span>Small software.</span>
+        <span class="soft">Real problems.</span>
       </h1>
 
       <div class="hero-bottom reveal">
+
         <p class="hero-description">
-          Luke Labs builds useful products, developer tools, and experiments
-          around the way people interact with software.
+          Luke Labs is an independent software studio by
+          <strong>@HubbyLight</strong>, building AI products,
+          developer tools, and experiments that make software
+          feel a little more natural.
         </p>
 
-        <div class="scroll-indicator">
-          Scroll to explore ↓
+        <div class="hero-scroll">
+          <span class="scroll-line"></span>
+          Scroll to explore
         </div>
+
       </div>
+
     </section>
 
-    <!-- Work -->
-    <section id="work">
+
+    <!-- =====================================================
+         SELECTED WORK
+    ====================================================== -->
+
+    <section
+      class="work-section page"
+      id="work"
+    >
+
       <div class="section-header reveal">
-        <h2 class="section-title">Selected work</h2>
-        <span class="section-number">01 — 02</span>
+        <div class="section-label">
+          Selected Work
+        </div>
+
+        <div class="section-number">
+          02 projects
+        </div>
       </div>
+
 
       <div class="projects">
 
-        <!-- SIU -->
-        <article class="project reveal">
-          <div class="project-content">
 
-            <div class="project-top">
-              <span class="project-index">01</span>
-              <span class="status">Building</span>
-            </div>
+        <!-- =================================================
+             PROJECT 01 — SIU
+        ================================================== -->
 
-            <div class="project-main">
-              <div class="project-icon">✦</div>
+        <article class="project glass reveal">
 
-              <h3>Siu</h3>
+          <div class="project-inner">
 
-              <p>
-                An AI companion that lives in iMessage.
-                Designed around natural, everyday conversation —
-                less like a chatbot, more like someone you keep talking to.
-              </p>
-            </div>
+            <div class="project-info">
 
-            <div class="project-bottom">
-              <span class="tech">AI · iMessage · Product</span>
+              <div>
+
+                <div class="project-top">
+
+                  <span class="project-index">
+                    01 / 02
+                  </span>
+
+                  <span class="project-status">
+                    <span class="status-dot"></span>
+                    Beta
+                  </span>
+
+                </div>
+
+                <h2 class="project-title">
+                  Siu
+                </h2>
+
+                <p class="project-description">
+                  An AI companion that lives in iMessage.
+                  Designed around natural, everyday
+                  conversations rather than a traditional
+                  chatbot interface.
+                </p>
+
+                <div class="project-meta">
+                  <span class="tag">AI</span>
+                  <span class="tag">iMessage</span>
+                  <span class="tag">Consumer Software</span>
+                </div>
+
+              </div>
+
 
               <a
+                class="project-link"
                 href="https://lukelab.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="project-link"
               >
-                Visit Siu
-                <span>↗</span>
+                Visit project
+
+                <span class="project-link-arrow">
+                  ↗
+                </span>
               </a>
+
+            </div>
+
+
+            <!-- IMAGE AREA
+                 Later replace the placeholder with:
+
+                 <img
+                   src="images/siu.jpg"
+                   alt="Siu AI companion"
+                 >
+
+                 ================================================= -->
+
+            <div class="project-visual">
+
+              <div class="visual-glow siu-glow"></div>
+
+              <div class="placeholder-device">
+
+                <div class="device-top"></div>
+
+                <div class="placeholder-content">
+
+                  <div class="placeholder-bubble">
+                    오늘 뭐했어
+                  </div>
+
+                  <div class="placeholder-bubble right">
+                    그냥 있었는데
+                    너는?
+                  </div>
+
+                  <div class="placeholder-bubble">
+                    나도 뭐 별거 없었음 ㅋㅋ
+                  </div>
+
+                  <div class="placeholder-bubble right">
+                    거짓말
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="placeholder-note">
+                Replace with: images/siu.jpg
+              </div>
+
             </div>
 
           </div>
+
         </article>
 
-        <!-- Claude Usage Tracker -->
-        <article class="project reveal">
-          <div class="project-content">
 
-            <div class="project-top">
-              <span class="project-index">02</span>
-              <span class="status">Open source</span>
-            </div>
+        <!-- =================================================
+             PROJECT 02 — CLAUDE USAGE TRACKER
+        ================================================== -->
 
-            <div class="project-main">
-              <div class="project-icon">◌</div>
+        <article class="project glass reveal">
 
-              <h3>Claude Usage Tracker</h3>
+          <div class="project-inner">
 
-              <p>
-                A lightweight Windows and macOS menu-bar utility that shows
-                Claude's session and weekly usage with live reset countdowns
-                and limit notifications.
-              </p>
-            </div>
+            <div class="project-info">
 
-            <div class="project-bottom">
-              <span class="tech">Electron · Node.js · Desktop</span>
+              <div>
+
+                <div class="project-top">
+
+                  <span class="project-index">
+                    02 / 02
+                  </span>
+
+                  <span class="project-status">
+                    <span class="status-dot"></span>
+                    Open Source
+                  </span>
+
+                </div>
+
+                <h2 class="project-title">
+                  Claude<br />
+                  Usage Tracker
+                </h2>
+
+                <p class="project-description">
+                  A lightweight Windows and macOS tray utility
+                  for tracking Claude usage limits, reset
+                  countdowns, notifications, and per-model
+                  weekly usage.
+                </p>
+
+                <div class="project-meta">
+                  <span class="tag">Electron</span>
+                  <span class="tag">JavaScript</span>
+                  <span class="tag">Desktop</span>
+                  <span class="tag">Open Source</span>
+                </div>
+
+              </div>
+
 
               <a
+                class="project-link"
                 href="https://github.com/HubbyLight/usage-tracker-for-claude"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="project-link"
               >
                 View on GitHub
-                <span>↗</span>
+
+                <span class="project-link-arrow">
+                  ↗
+                </span>
               </a>
+
+            </div>
+
+
+            <!-- IMAGE AREA
+                 Later replace the entire .tracker-window
+                 with:
+
+                 <img
+                   src="images/usage-tracker.jpg"
+                   alt="Claude Usage Tracker desktop app"
+                 >
+
+                 ================================================= -->
+
+            <div class="project-visual">
+
+              <div class="visual-glow tracker-glow"></div>
+
+              <div class="tracker-window">
+
+                <div class="window-header">
+
+                  <span class="window-dot"></span>
+                  <span class="window-dot"></span>
+                  <span class="window-dot"></span>
+
+                  <span class="window-title">
+                    Claude Usage Tracker
+                  </span>
+
+                </div>
+
+
+                <div class="usage-display">
+
+                  <div class="usage-ring">
+                    <span class="usage-number">
+                      64%
+                    </span>
+                  </div>
+
+                  <div class="usage-side">
+                    <strong>
+                      Current session
+                    </strong>
+
+                    <span>
+                      Resetting in 2h 14m
+                    </span>
+                  </div>
+
+                </div>
+
+
+                <div class="usage-bars">
+
+                  <div class="usage-bar"></div>
+                  <div class="usage-bar"></div>
+                  <div class="usage-bar"></div>
+
+                </div>
+
+              </div>
+
+              <div class="placeholder-note">
+                Replace with: images/usage-tracker.jpg
+              </div>
+
             </div>
 
           </div>
+
         </article>
 
       </div>
+
     </section>
 
-    <!-- Philosophy -->
-    <section>
-      <div class="philosophy reveal">
-        <p>
-          I don't want to build
-          <span class="dim">software that simply exists.</span>
-          I want to build software
-          <span class="dim">people actually use.</span>
+
+    <!-- =====================================================
+         PHILOSOPHY
+    ====================================================== -->
+
+    <section class="philosophy page">
+
+      <div class="philosophy-card glass reveal">
+
+        <div class="philosophy-small">
+          Philosophy
+        </div>
+
+        <p class="philosophy-quote">
+          I don't want to build software
+          <span>that simply exists.</span>
         </p>
-      </div>
-    </section>
 
-    <!-- About -->
-    <section id="about">
-      <div class="about-card reveal">
-
-        <div>
-          <div class="about-label">About Luke Labs</div>
-        </div>
-
-        <div>
-          <p class="about-text">
-            An independent software studio by
-            <strong>@HubbyLight</strong>.
-          </p>
-
-          <p class="about-small">
-            I build software from idea to working product — exploring AI,
-            developer tools, and new ways software can fit naturally into
-            everyday life.
-            <br /><br />
-            Some projects become products.
-            Some become experiments.
-            All of them are built to learn something.
-          </p>
+        <div class="philosophy-bottom">
+          I want to build things people actually use.
         </div>
 
       </div>
+
     </section>
+
+
+    <!-- =====================================================
+         ABOUT
+    ====================================================== -->
+
+    <section
+      class="about-section page"
+      id="about"
+    >
+
+      <div class="about-card glass reveal">
+
+        <div class="about-grid">
+
+          <div class="about-title">
+            About Luke Labs
+          </div>
+
+
+          <div class="about-main">
+
+            <h2>
+              An independent software studio by
+              <strong>@HubbyLight.</strong>
+            </h2>
+
+
+            <p class="about-copy">
+              I build software from idea to working product —
+              exploring AI, developer tools, and new ways
+              software can fit naturally into everyday life.
+            </p>
+
+            <p class="about-copy">
+              Some projects become products. Some become
+              experiments. All of them are built to learn
+              something.
+            </p>
+
+
+            <div class="about-info">
+
+              <div class="info-box">
+
+                <div class="info-label">
+                  Focus
+                </div>
+
+                <div class="info-value">
+                  AI<br />
+                  Developer Tools<br />
+                  Consumer Software
+                </div>
+
+              </div>
+
+
+              <div class="info-box">
+
+                <div class="info-label">
+                  Currently
+                </div>
+
+                <div class="info-value">
+                  Siu<br />
+                  Usage Tracker<br />
+                  New Experiments
+                </div>
+
+              </div>
+
+
+              <div class="info-box">
+
+                <div class="info-label">
+                  Based
+                </div>
+
+                <div class="info-value">
+                  Seoul<br />
+                  South Korea
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
 
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-inner">
 
-      <div class="footer-brand">
-        Luke Labs © 2026
+  <!-- =======================================================
+       FOOTER
+  ======================================================== -->
+
+  <footer>
+
+    <div class="page footer-inner">
+
+      <div>
+
+        <div class="footer-brand">
+          Luke Labs
+        </div>
+
+        <div class="copyright">
+          © 2026 Luke Labs
+        </div>
+
       </div>
 
+
       <div class="footer-right">
+
         <a
+          class="footer-link"
           href="https://github.com/HubbyLight"
           target="_blank"
           rel="noopener noreferrer"
@@ -870,79 +1750,135 @@
           GitHub ↗
         </a>
 
-        <a href="mailto:hello@lukelabs.dev">
-          Contact ↗
+        <a
+          class="footer-link"
+          href="https://lukelab.app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Siu ↗
         </a>
+
       </div>
 
     </div>
+
   </footer>
 
-  <script>
-    /* ------------------------------
-       Navbar scroll state
-    ------------------------------ */
 
-    const nav = document.getElementById("nav");
+  <!-- =======================================================
+       JAVASCRIPT
+  ======================================================== -->
+
+  <script>
+
+    /* -------------------------------------------------------
+       NAV SCROLL EFFECT
+    ------------------------------------------------------- */
+
+    const nav = document.querySelector(".nav");
 
     window.addEventListener(
       "scroll",
       () => {
-        nav.classList.toggle("scrolled", window.scrollY > 30);
+
+        if (window.scrollY > 20) {
+          nav.classList.add("scrolled");
+        } else {
+          nav.classList.remove("scrolled");
+        }
+
       },
       { passive: true }
     );
 
 
-    /* ------------------------------
-       Scroll reveal
-    ------------------------------ */
+    /* -------------------------------------------------------
+       SCROLL REVEAL
+    ------------------------------------------------------- */
 
-    const revealElements = document.querySelectorAll(".reveal");
+    const revealElements =
+      document.querySelectorAll(".reveal");
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-      }
-    );
+    const revealObserver =
+      new IntersectionObserver(
+        (entries) => {
 
-    revealElements.forEach((element, index) => {
-      element.style.transitionDelay = `${Math.min(index * 60, 300)}ms`;
-      observer.observe(element);
+          entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add("visible");
+
+              revealObserver.unobserve(
+                entry.target
+              );
+
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.12,
+          rootMargin: "0px 0px -50px 0px"
+        }
+      );
+
+
+    revealElements.forEach((element) => {
+      revealObserver.observe(element);
     });
 
 
-    /* ------------------------------
-       Liquid glass mouse highlight
-    ------------------------------ */
+    /* -------------------------------------------------------
+       GLASS POINTER LIGHT
+    ------------------------------------------------------- */
 
-    const cards = document.querySelectorAll(".project");
+    const glassCards =
+      document.querySelectorAll(".glass");
 
-    cards.forEach((card) => {
-      card.addEventListener("pointermove", (event) => {
-        const rect = card.getBoundingClientRect();
+    glassCards.forEach((card) => {
 
-        const x = ((event.clientX - rect.left) / rect.width) * 100;
-        const y = ((event.clientY - rect.top) / rect.height) * 100;
+      card.addEventListener(
+        "pointermove",
+        (event) => {
 
-        card.style.setProperty("--mx", `${x}%`);
-        card.style.setProperty("--my", `${y}%`);
-      });
+          const rect =
+            card.getBoundingClientRect();
+
+          const x =
+            ((event.clientX - rect.left) /
+              rect.width) *
+            100;
+
+          const y =
+            ((event.clientY - rect.top) /
+              rect.height) *
+            100;
+
+          card.style.setProperty(
+            "--mouse-x",
+            `${x}%`
+          );
+
+          card.style.setProperty(
+            "--mouse-y",
+            `${y}%`
+          );
+
+        }
+      );
+
     });
 
 
-    /* ------------------------------
-       Slight cursor parallax for
-       ambient orbs
-    ------------------------------ */
+    /* -------------------------------------------------------
+       AMBIENT ORB PARALLAX
+    ------------------------------------------------------- */
+
+    const orbs =
+      document.querySelectorAll(".orb");
 
     let mouseX = 0;
     let mouseY = 0;
@@ -950,20 +1886,61 @@
     window.addEventListener(
       "pointermove",
       (event) => {
-        mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
-        mouseY = (event.clientY / window.innerHeight - 0.5) * 2;
 
-        document.querySelector(".orb.one").style.transform =
-          `translate(${mouseX * 15}px, ${mouseY * 15}px)`;
+        mouseX =
+          (event.clientX /
+            window.innerWidth -
+            0.5);
 
-        document.querySelector(".orb.two").style.transform =
-          `translate(${mouseX * -20}px, ${mouseY * -20}px)`;
+        mouseY =
+          (event.clientY /
+            window.innerHeight -
+            0.5);
 
-        document.querySelector(".orb.three").style.transform =
-          `translate(${mouseX * 10}px, ${mouseY * -12}px)`;
       },
       { passive: true }
     );
+
+
+    function animateOrbs() {
+
+      orbs.forEach((orb, index) => {
+
+        const amount =
+          (index + 1) * 12;
+
+        orb.style.transform =
+          `translate(
+            ${mouseX * amount}px,
+            ${mouseY * amount}px
+          )`;
+
+      });
+
+      requestAnimationFrame(
+        animateOrbs
+      );
+
+    }
+
+    animateOrbs();
+
+
+    /* -------------------------------------------------------
+       EXTERNAL LINK SAFETY
+    ------------------------------------------------------- */
+
+    document
+      .querySelectorAll('a[target="_blank"]')
+      .forEach((link) => {
+
+        link.setAttribute(
+          "rel",
+          "noopener noreferrer"
+        );
+
+      });
+
   </script>
 
 </body>
